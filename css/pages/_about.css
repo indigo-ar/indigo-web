@@ -80,9 +80,10 @@
 }
 
 .intro-band__lineart {
-  width: 80px;
-  opacity: 0.5;
+  width: 38px;
+  opacity: 0.35;
   display: block;
+  filter: blur(0.6px);
 }
 
 .intro-band__row {
