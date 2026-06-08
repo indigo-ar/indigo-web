@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Índigo — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 14px; }
+    body { font-family: 'Inter', sans-serif; background: #f7f4f2; color: #2a1520; min-height: 100vh; }
+
+    /* ── LOGIN ── */
+    .login {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .login__box {
+      background: white;
+      padding: 48px;
+      width: 100%; max-width: 380px;
+      border: 1px solid #ede8e3;
+    }
+    .login__logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 300;
+      letter-spacing: 0.08em;
+      color: #4c2744;
+      margin-bottom: 8px;
+    }
+    .login__sub {
+      font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: rgba(42,21,32,0.4);
+      margin-bottom: 32px;
+    }
+    .login__label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(42,21,32,0.5); display: block; margin-bottom: 8px; }
+    .login__input {
+      width: 100%; padding: 12px 14px;
+      border: 1px solid #ede8e3; background: #faf8f6;
+      font-family: inherit; font-size: 0.9rem; color: #2a1520;
+      outline: none; transition: border-color 0.2s;
+    }
+    .login__input:focus { border-color: #4c2744; }
+    .login__btn {
+      margin-top: 20px; width: 100%;
+      padding: 13px; background: #4c2744; color: white;
+      border: none; cursor: pointer;
+      font-family: inherit; font-size: 0.72rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .login__btn:hover { background: #3a1c34; }
+    .login__error { margin-top: 12px; font-size: 0.78rem; color: #c04040; }
+
+    /* ── LAYOUT ── */
+    .app { display: none; min-height: 100vh; flex-direction: column; }
+    .app.visible { display: flex; }
+
+    .topbar {
+      background: #4c2744; padding: 0 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px; flex-shrink: 0;
+    }
+    .topbar__brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 300; letter-spacing: 0.08em; color: white;
+    }
+    .topbar__sub { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-left: 12px; }
+    .topbar__logout {
+      font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); background: none; border: none; cursor: pointer;
+      transition: color 0.2s;
+    }
+    .topbar__logout:hover { color: white; }
+
+    .main { flex: 1; padding: 32px; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+    /* ── STATS ── */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+    .stat-card { background: white; border: 1px solid #ede8e3; padding: 20px 24px; }
+    .stat-card__num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: #4c2744; line-height: 1; }
+    .stat-card__label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(42,21,32,0.4); margin-top: 6px; }
+
+    /* ── FILTROS ── */
+    .filters {
+      display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+    }
+    .filters__left { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 7px 16px; font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; border: 1px solid #ede8e3;
+      background: white; cursor: pointer; color: rgba(42,21,32,0.5);
+      transition: all 0.2s; font-family: inherit;
+    }
+    .filter-btn:hover, .filter-btn.active { background: #4c2744; color: white; border-color: #4c2744; }
+    .refresh-btn {
+      padding: 7px 16px; font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; border: 1px solid #4c2744;
+      background: transparent; cursor: pointer; color: #4c2744;
+      transition: all 0.2s; font-family: inherit;
+    }
+    .refresh-btn:hover { background: #4c2744; color: white; }
+
+    /* ── TABLA ── */
+    .table-wrap { background: white; border: 1px solid #ede8e3; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: #faf8f6; }
+    th {
+      padding: 12px 16px; text-align: left;
+      font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(42,21,32,0.4); font-weight: 500;
+      border-bottom: 1px solid #ede8e3;
+    }
+    td { padding: 14px 16px; border-bottom: 1px solid #f0ebe6; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fdf9f7; }
+
+    .td-nombre { font-weight: 500; }
+    .td-wa { color: rgba(42,21,32,0.5); font-size: 0.85rem; }
+    .td-fecha { font-size: 0.8rem; color: rgba(42,21,32,0.4); }
+    .td-total { font-weight: 600; color: #4c2744; }
+    .td-productos { font-size: 0.8rem; color: rgba(42,21,32,0.6); max-width: 200px; }
+
+    /* Badges de estado */
+    .badge {
+      display: inline-block; padding: 3px 10px;
+      font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 500; border-radius: 100px;
+    }
+    .badge--pendiente      { background: #fef3cd; color: #856404; }
+    .badge--en_preparacion { background: #cfe2ff; color: #084298; }
+    .badge--listo          { background: #d1e7dd; color: #0a3622; }
+    .badge--entregado      { background: #e2e3e5; color: #41464b; }
+    .badge--pagado         { background: #d1e7dd; color: #0a3622; }
+    .badge--pago-pendiente { background: #f8d7da; color: #842029; }
+
+    /* Selects de estado */
+    .estado-select, .pago-select {
+      font-family: inherit; font-size: 0.72rem;
+      padding: 5px 8px; border: 1px solid #ede8e3;
+      background: white; cursor: pointer; color: #2a1520;
+      outline: none; transition: border-color 0.2s;
+    }
+    .estado-select:focus, .pago-select:focus { border-color: #4c2744; }
+
+    .empty { padding: 48px; text-align: center; color: rgba(42,21,32,0.3); font-size: 0.85rem; letter-spacing: 0.05em; }
+    .loading { padding: 48px; text-align: center; color: rgba(42,21,32,0.3); font-size: 0.85rem; }
+
+    @media (max-width: 700px) {
+      .main { padding: 16px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .topbar { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── LOGIN ── -->
+  <div class="login" id="loginScreen">
+    <div class="login__box">
+      <p class="login__logo">Índigo</p>
+      <p class="login__sub">Panel de administración</p>
+      <label class="login__label" for="pwd">Contraseña</label>
+      <input class="login__input" type="password" id="pwd" placeholder="••••••••" />
+      <button class="login__btn" id="loginBtn">Ingresar</button>
+      <p class="login__error" id="loginError"></p>
+    </div>
+  </div>
+
+  <!-- ── APP ── -->
+  <div class="app" id="app">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;">
+        <span class="topbar__brand">Índigo</span>
+        <span class="topbar__sub">Pedidos</span>
+      </div>
+      <button class="topbar__logout" id="logoutBtn">Salir</button>
+    </header>
+
+    <main class="main">
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat-card"><div class="stat-card__num" id="statTotal">—</div><div class="stat-card__label">Total pedidos</div></div>
+        <div class="stat-card"><div class="stat-card__num" id="statPendiente">—</div><div class="stat-card__label">Pendientes</div></div>
+        <div class="stat-card"><div class="stat-card__num" id="statHoy">—</div><div class="stat-card__label">Hoy</div></div>
+        <div class="stat-card"><div class="stat-card__num" id="statSinPagar">—</div><div class="stat-card__label">Sin cobrar</div></div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="filters">
+        <div class="filters__left">
+          <button class="filter-btn active" data-estado="">Todos</button>
+          <button class="filter-btn" data-estado="pendiente">Pendientes</button>
+          <button class="filter-btn" data-estado="en_preparacion">En preparación</button>
+          <button class="filter-btn" data-estado="listo">Listos</button>
+          <button class="filter-btn" data-estado="entregado">Entregados</button>
+        </div>
+        <button class="refresh-btn" id="refreshBtn">↻ Actualizar</button>
+      </div>
+
+      <!-- Tabla -->
+      <div class="table-wrap">
+        <div class="loading" id="tableLoading">Cargando pedidos...</div>
+        <table id="pedidosTable" style="display:none">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Productos</th>
+              <th>Total</th>
+              <th>Estado pedido</th>
+              <th>Pago</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="pedidosTbody"></tbody>
+        </table>
+        <div class="empty" id="tableEmpty" style="display:none">No hay pedidos en esta categoría</div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    const API = 'http://localhost:3001/api';
+    let token = sessionStorage.getItem('indigo_admin_token');
+    let filtroActual = '';
+
+    // ── LOGIN ──
+    if (token) mostrarApp();
+
+    document.getElementById('loginBtn').addEventListener('click', login);
+    document.getElementById('pwd').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+    async function login() {
+      const pwd = document.getElementById('pwd').value;
+      const err = document.getElementById('loginError');
+      err.textContent = '';
+
+      const res = await fetch(`${API}/pedidos`, {
+        headers: { Authorization: `Bearer ${pwd}` }
+      }).catch(() => null);
+
+      if (res?.ok) {
+        token = pwd;
+        sessionStorage.setItem('indigo_admin_token', token);
+        mostrarApp();
+      } else {
+        err.textContent = 'Contraseña incorrecta';
+      }
+    }
+
+    function mostrarApp() {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('app').classList.add('visible');
+      cargarPedidos();
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      sessionStorage.removeItem('indigo_admin_token');
+      location.reload();
+    });
+
+    // ── FILTROS ──
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filtroActual = btn.dataset.estado;
+        cargarPedidos();
+      });
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', cargarPedidos);
+
+    // ── CARGAR PEDIDOS ──
+    async function cargarPedidos() {
+      document.getElementById('tableLoading').style.display = 'block';
+      document.getElementById('pedidosTable').style.display = 'none';
+      document.getElementById('tableEmpty').style.display = 'none';
+
+      const url = filtroActual ? `${API}/pedidos?estado=${filtroActual}` : `${API}/pedidos`;
+      const res  = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+      const json = await res.json();
+      const pedidos = json.data ?? [];
+
+      document.getElementById('tableLoading').style.display = 'none';
+      actualizarStats(pedidos);
+      renderTabla(pedidos);
+    }
+
+    function actualizarStats(pedidos) {
+      const hoy = new Date().toDateString();
+      document.getElementById('statTotal').textContent    = pedidos.length;
+      document.getElementById('statPendiente').textContent = pedidos.filter(p => p.estado === 'pendiente').length;
+      document.getElementById('statHoy').textContent      = pedidos.filter(p => new Date(p.created_at).toDateString() === hoy).length;
+      document.getElementById('statSinPagar').textContent = pedidos.filter(p => p.pago === 'pendiente').length;
+    }
+
+    function renderTabla(pedidos) {
+      if (!pedidos.length) {
+        document.getElementById('tableEmpty').style.display = 'block';
+        return;
+      }
+
+      document.getElementById('pedidosTable').style.display = 'table';
+      document.getElementById('pedidosTbody').innerHTML = pedidos.map(p => `
+        <tr>
+          <td>
+            <div class="td-nombre">${p.nombre}</div>
+            <div class="td-wa">${p.whatsapp}</div>
+          </td>
+          <td class="td-productos">${formatProductos(p.productos)}</td>
+          <td class="td-total">$${p.total.toLocaleString('es-AR')}</td>
+          <td>
+            <select class="estado-select" data-id="${p.id}" data-field="estado" onchange="window.__updatePedido(this)">
+              <option value="pendiente"       ${p.estado==='pendiente'?'selected':''}>Pendiente</option>
+              <option value="en_preparacion"  ${p.estado==='en_preparacion'?'selected':''}>En preparación</option>
+              <option value="listo"           ${p.estado==='listo'?'selected':''}>Listo</option>
+              <option value="entregado"       ${p.estado==='entregado'?'selected':''}>Entregado</option>
+            </select>
+          </td>
+          <td>
+            <select class="pago-select" data-id="${p.id}" data-field="pago" onchange="window.__updatePedido(this)">
+              <option value="pendiente" ${p.pago==='pendiente'?'selected':''}>Sin cobrar</option>
+              <option value="pagado"    ${p.pago==='pagado'?'selected':''}>Pagado</option>
+            </select>
+          </td>
+          <td class="td-fecha">${formatFecha(p.created_at)}</td>
+        </tr>
+      `).join('');
+    }
+
+    window.__updatePedido = async function(select) {
+      const id    = select.dataset.id;
+      const field = select.dataset.field;
+      const value = select.value;
+
+      select.disabled = true;
+      const res = await fetch(`${API}/pedidos/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ [field]: value })
+      });
+      select.disabled = false;
+
+      if (!res.ok) {
+        alert('Error al actualizar. Intentá de nuevo.');
+        cargarPedidos();
+      }
+    };
+
+    function formatProductos(productos) {
+      if (!Array.isArray(productos)) return '—';
+      return productos.map(p => `${p.name} ×${p.qty}`).join(', ');
+    }
+
+    function formatFecha(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: '2-digit' })
+        + ' ' + d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+    }
+  </script>
+
+</body>
+</html>
