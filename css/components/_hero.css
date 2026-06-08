@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: calc(var(--nav-height) + var(--space-8)) var(--space-5) var(--space-8);
+  padding: calc(var(--nav-height) + var(--space-4)) var(--space-5) var(--space-4);
 }
 
 .hero__content {
