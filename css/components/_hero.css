@@ -17,8 +17,8 @@
 }
 
 .hero__logo {
-  width: 340px;
-  max-width: 80vw;
+  width: 420px;
+  max-width: 85vw;
   margin: 0 auto var(--space-8);
   display: block;
 }
