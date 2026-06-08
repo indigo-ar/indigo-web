@@ -1,0 +1,107 @@
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  transition: background var(--duration) var(--ease-out), border-color var(--duration);
+  border-bottom: 1px solid transparent;
+}
+
+.navbar--scrolled {
+  background: rgba(243, 232, 222, 0.98);
+  backdrop-filter: blur(20px);
+  border-color: var(--color-ink-10);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-8);
+}
+
+/* Logo / back button */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+  color: var(--color-indigo);
+  transition: color var(--duration);
+}
+
+.navbar__logo-img {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+.navbar__back-arrow {
+  color: var(--color-ink-30);
+  flex-shrink: 0;
+  transition: transform var(--duration), color var(--duration);
+}
+
+.navbar__logo:hover .navbar__back-arrow {
+  transform: translateX(-3px);
+  color: var(--color-indigo);
+}
+
+/* Nav links */
+.navbar__links {
+  display: flex;
+  gap: var(--space-8);
+  margin: 0 auto;
+}
+
+.navbar__links a {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--color-ink-60);
+  transition: color var(--duration);
+}
+
+.navbar__links a:hover { color: var(--color-indigo); }
+
+/* Cart button */
+.navbar__cart {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+  color: var(--color-ink-60);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color var(--duration);
+}
+
+.navbar__cart:hover { color: var(--color-indigo); }
+
+.navbar__cart-badge {
+  background: var(--color-copper);
+  color: var(--color-white);
+  font-size: 0.6rem;
+  font-weight: 600;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px var(--space-4);
+  }
+  .navbar__links { display: none; }
+  .navbar__logo-img { height: 40px; }
+}

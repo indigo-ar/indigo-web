@@ -1,0 +1,29 @@
+/* ─────────────────────────────────────────
+   Índigo — Main stylesheet
+   Entry point: imports all partials in order
+───────────────────────────────────────── */
+
+/* Base */
+@import 'base/_variables.css';
+@import 'base/_reset.css';
+@import 'base/_typography.css';
+
+/* Layouts */
+@import 'layouts/_container.css';
+
+/* Components */
+@import 'components/_buttons.css';
+@import 'components/_navbar.css';
+@import 'components/_hero.css';
+@import 'components/_products.css';
+@import 'components/_cart.css';
+@import 'components/_modal.css';
+@import 'components/_reviews.css';
+@import 'components/_gallery.css';
+@import 'components/_faq.css';
+@import 'components/_order.css';
+@import 'components/_footer.css';
+@import 'components/_animations.css';
+
+/* Pages */
+@import 'pages/_about.css';

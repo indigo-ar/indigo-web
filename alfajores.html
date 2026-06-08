@@ -4,29 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Índigo — Alfajores de Autor</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/main.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
 
   <!-- ── NAV ── -->
-  <nav id="navbar">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo nav-logo-back">
-        <svg class="nav-back-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-        <img src="images/logo.png" alt="índigo" class="nav-logo-img" />
+  <nav id="navbar" class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo navbar__logo--back">
+        <svg class="navbar__back-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        <img src="images/logo.png" alt="índigo" class="navbar__logo-img" />
       </a>
-      <ul class="nav-links">
+      <ul class="navbar__links">
         <li><a href="#nosotros">Nosotros</a></li>
         <li><a href="#productos">Colección</a></li>
         <li><a href="#galeria">Galería</a></li>
         <li><a href="#pedidos">Pedidos</a></li>
       </ul>
-      <button class="nav-cart" id="cartBtn">
+      <button class="navbar__cart" id="cartBtn">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         <span>Carrito</span>
-        <span class="cart-badge" id="cartCount">0</span>
+        <span class="navbar__cart-badge" id="cartCount">0</span>
       </button>
     </div>
   </nav>
@@ -223,31 +223,31 @@
   <!-- ── FAQ ── -->
   <section class="faq section-pad">
     <div class="container">
-      <div class="faq-inner">
-        <div class="faq-header reveal">
+      <div class="faq__inner">
+        <div class="faq__header reveal">
           <span class="label">Preguntas frecuentes</span>
           <h2>Todo lo que<br>necesitás saber</h2>
         </div>
-        <div class="faq-list">
+        <div class="faq__list">
           <div class="faq-item reveal">
-            <button class="faq-q" aria-expanded="false">¿Con cuánta anticipación hay que encargar?</button>
-            <div class="faq-a"><p>Recomendamos encargar con al menos 48 horas de anticipación. Para pedidos grandes o fechas especiales, avisanos con más tiempo.</p></div>
+            <button class="faq__question" aria-expanded="false">¿Con cuánta anticipación hay que encargar?</button>
+            <div class="faq__answer"><p>Recomendamos encargar con al menos 48 horas de anticipación. Para pedidos grandes o fechas especiales, avisanos con más tiempo.</p></div>
           </div>
           <div class="faq-item reveal">
-            <button class="faq-q" aria-expanded="false">¿Hay un mínimo de pedido?</button>
-            <div class="faq-a"><p>El mínimo es de 4 alfajores. También podés elegir la caja de 8 con las combinaciones que quieras.</p></div>
+            <button class="faq__question" aria-expanded="false">¿Hay un mínimo de pedido?</button>
+            <div class="faq__answer"><p>El mínimo es de 4 alfajores. También podés elegir la caja de 8 con las combinaciones que quieras.</p></div>
           </div>
           <div class="faq-item reveal">
-            <button class="faq-q" aria-expanded="false">¿Hacen envíos?</button>
-            <div class="faq-a"><p>Sí, hacemos envíos dentro de CABA y GBA. El costo de envío se coordina por WhatsApp según la zona. También podés retirar sin cargo.</p></div>
+            <button class="faq__question" aria-expanded="false">¿Hacen envíos?</button>
+            <div class="faq__answer"><p>Sí, hacemos envíos dentro de CABA y GBA. El costo de envío se coordina por WhatsApp según la zona. También podés retirar sin cargo.</p></div>
           </div>
           <div class="faq-item reveal">
-            <button class="faq-q" aria-expanded="false">¿Cuánto duran los alfajores?</button>
-            <div class="faq-a"><p>Duran hasta 7 días conservados en un lugar fresco y seco, fuera de la heladera. Al no tener conservantes, recomendamos consumirlos lo antes posible.</p></div>
+            <button class="faq__question" aria-expanded="false">¿Cuánto duran los alfajores?</button>
+            <div class="faq__answer"><p>Duran hasta 7 días conservados en un lugar fresco y seco, fuera de la heladera. Al no tener conservantes, recomendamos consumirlos lo antes posible.</p></div>
           </div>
           <div class="faq-item reveal">
-            <button class="faq-q" aria-expanded="false">¿Hacen cajas personalizadas para eventos?</button>
-            <div class="faq-a"><p>Sí. Consultanos por WhatsApp para cotizar cajas para cumpleaños, casamientos, empresas u otras ocasiones especiales.</p></div>
+            <button class="faq__question" aria-expanded="false">¿Hacen cajas personalizadas para eventos?</button>
+            <div class="faq__answer"><p>Sí. Consultanos por WhatsApp para cotizar cajas para cumpleaños, casamientos, empresas u otras ocasiones especiales.</p></div>
           </div>
         </div>
       </div>
@@ -319,6 +319,6 @@
     <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
-  <script src="js/main.js"></script>
+  <script type="module" src="js/pages/alfajores.js"></script>
 </body>
 </html>
