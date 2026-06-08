@@ -71,7 +71,10 @@ function renderItems() {
 
   itemsEl.innerHTML = cart.getItems().map((item) => `
     <div class="cart-item">
-      <span class="cart-item__icon">${item.icon}</span>
+      <div class="cart-item__chips">
+        <span class="chip chip--${item.tapa}"></span>
+        <span class="chip chip--${item.cobertura}"></span>
+      </div>
       <div class="cart-item__info">
         <p class="cart-item__name">${item.name}</p>
         <p class="cart-item__price">${formatPrice(item.price * item.qty)}</p>
