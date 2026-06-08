@@ -10,21 +10,21 @@
 }
 
 .review-card {
-  background: rgba(243, 232, 222, 0.12);
+  background: var(--color-blush);
   padding: var(--space-7) var(--space-6);
-  border: 1px solid rgba(243, 232, 222, 0.15);
+  border: 1px solid rgba(243, 232, 222, 0.3);
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
 
-.review-card__stars { color: var(--color-blush); font-size: 0.85rem; letter-spacing: 3px; }
+.review-card__stars { color: var(--color-indigo); font-size: 0.85rem; letter-spacing: 3px; }
 
 .review-card__text {
   font-family: var(--font-serif);
   font-size: 1.05rem;
   font-style: italic;
-  color: var(--color-blush);
+  color: var(--color-ink);
   line-height: 1.7;
   flex: 1;
 }
@@ -33,7 +33,7 @@
   font-size: 0.78rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(243, 232, 222, 0.5);
+  color: var(--color-ink-30);
 }
 
 @media (max-width: 900px) {
