@@ -9,26 +9,27 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; overflow: hidden; }
-    body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; }
 
-    /* ── LOGO SUPERIOR ── */
-    .top-logo {
-      position: fixed; top: 32px; left: 50%; transform: translateX(-50%);
-      z-index: 10; text-align: center;
-      pointer-events: none;
+    /* ── BRAND HEADER ── */
+    .brand {
+      flex: 0 0 50vh;
+      background: #f3e8de;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .top-logo-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem; font-weight: 300;
-      letter-spacing: 0.12em;
-      color: rgba(255,255,255,0.9);
-      mix-blend-mode: overlay;
+    .brand__logo {
+      width: 320px;
+      max-width: 70vw;
+      display: block;
+      animation: fadeUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
     }
 
     /* ── SELECTOR ── */
     .selector {
+      flex: 0 0 50vh;
       display: flex;
-      height: 100vh;
     }
 
     .panel {
@@ -36,7 +37,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 56px 48px;
+      padding: 36px 40px;
       cursor: pointer;
       text-decoration: none;
       position: relative;
@@ -47,7 +48,7 @@
 
     /* Colores */
     .panel--alfajores { background: #4c2744; }
-    .panel--cenas     { background: #f3e8de; }
+    .panel--cenas     { background: #f3e8de; border-top: 1px solid rgba(155,76,52,0.1); }
     .panel--market    { background: #254c42; }
 
     /* Overlay sutil al hover */
@@ -60,21 +61,17 @@
     .panel:hover::before { background: rgba(0,0,0,0.06); }
 
     /* Línea divisora */
-    .panel + .panel {
-      border-left: 1px solid rgba(255,255,255,0.1);
-    }
-    .panel--cenas + .panel {
-      border-left: 1px solid rgba(0,0,0,0.08);
-    }
+    .panel + .panel { border-left: 1px solid rgba(255,255,255,0.1); }
+    .panel--cenas + .panel { border-left: 1px solid rgba(0,0,0,0.08); }
 
     /* Contenido */
     .panel-content { position: relative; z-index: 1; }
 
     .panel-tag {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
       opacity: 0.6;
       display: block;
     }
@@ -85,7 +82,7 @@
     .panel-title {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      font-size: clamp(1.8rem, 2.8vw, 2.6rem);
       line-height: 1.1;
       margin-bottom: 16px;
     }
@@ -94,10 +91,10 @@
     .panel--cenas     .panel-title { color: #9b4c34; }
 
     .panel-desc {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       line-height: 1.7;
-      max-width: 260px;
-      margin-bottom: 32px;
+      max-width: 240px;
+      margin-bottom: 24px;
       opacity: 0;
       transform: translateY(8px);
       transition: opacity 0.4s 0.1s, transform 0.4s 0.1s;
@@ -109,106 +106,76 @@
 
     .panel-cta {
       display: inline-flex; align-items: center; gap: 10px;
-      font-size: 0.72rem; letter-spacing: 0.16em;
+      font-size: 0.68rem; letter-spacing: 0.16em;
       text-transform: uppercase; font-weight: 500;
-      padding: 12px 24px;
+      padding: 10px 20px;
       border: 1px solid;
       transition: background 0.3s, color 0.3s;
     }
-    .panel--alfajores .panel-cta {
-      color: #fff; border-color: rgba(255,255,255,0.4);
-    }
-    .panel--alfajores:hover .panel-cta {
-      background: rgba(255,255,255,0.12);
-    }
-    .panel--cenas .panel-cta {
-      color: #9b4c34; border-color: rgba(155,76,52,0.35);
-    }
-    .panel--cenas:hover .panel-cta {
-      background: rgba(155,76,52,0.08);
-    }
-    .panel--market .panel-cta {
-      color: #fff; border-color: rgba(255,255,255,0.4);
-    }
-    .panel--market:hover .panel-cta {
-      background: rgba(255,255,255,0.12);
-    }
+    .panel--alfajores .panel-cta { color: #fff; border-color: rgba(255,255,255,0.4); }
+    .panel--alfajores:hover .panel-cta { background: rgba(255,255,255,0.12); }
+    .panel--cenas .panel-cta { color: #9b4c34; border-color: rgba(155,76,52,0.35); }
+    .panel--cenas:hover .panel-cta { background: rgba(155,76,52,0.08); }
+    .panel--market .panel-cta { color: #fff; border-color: rgba(255,255,255,0.4); }
+    .panel--market:hover .panel-cta { background: rgba(255,255,255,0.12); }
 
-    .panel-arrow {
-      display: inline-block;
-      transition: transform 0.3s;
-    }
+    .panel-arrow { display: inline-block; transition: transform 0.3s; }
     .panel:hover .panel-arrow { transform: translateX(4px); }
 
     /* Número decorativo */
     .panel-num {
       position: absolute;
-      top: 40px; right: 40px;
+      top: 28px; right: 32px;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 6rem; font-weight: 300;
-      line-height: 1;
-      opacity: 0.06;
-      user-select: none;
+      font-size: 5rem; font-weight: 300;
+      line-height: 1; opacity: 0.06; user-select: none;
     }
     .panel--alfajores .panel-num,
     .panel--market    .panel-num { color: #fff; }
     .panel--cenas     .panel-num { color: #9b4c34; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-      html, body { overflow-y: auto; overflow-x: hidden; }
-      .selector { flex-direction: column; height: auto; min-height: 100svh; }
-      .panel { flex: none; min-height: 34vh; justify-content: center; padding: 40px 32px; }
-      .panel:hover { flex: none; }
-      .panel-desc { opacity: 1; transform: none; margin-bottom: 20px; }
-      .panel-num { display: none; }
-      .panel-title { font-size: 2rem; margin-bottom: 10px; }
-      .panel-tag { margin-bottom: 8px; }
-    }
-    @media (max-width: 400px) {
-      .panel { min-height: 30vh; padding: 28px 24px; }
-      .panel-title { font-size: 1.7rem; }
-    }
-
     /* ── PRÓXIMAMENTE ── */
     .panel-soon {
       position: absolute;
-      top: 28px; left: 48px;
-      font-size: 0.6rem;
+      top: 20px; left: 40px;
+      font-size: 0.58rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       font-weight: 500;
-      padding: 5px 12px;
+      padding: 4px 10px;
       border: 1px solid;
       z-index: 1;
     }
-    .panel--cenas .panel-soon {
-      color: #9b4c34;
-      border-color: rgba(155,76,52,0.35);
-    }
-    .panel--market .panel-soon {
-      color: rgba(255,255,255,0.6);
-      border-color: rgba(255,255,255,0.25);
-    }
+    .panel--cenas .panel-soon  { color: #9b4c34; border-color: rgba(155,76,52,0.35); }
+    .panel--market .panel-soon { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.25); }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
-      .panel-soon { top: 20px; left: 32px; }
+      html, body { overflow-y: auto; overflow-x: hidden; }
+      .brand { flex: none; min-height: 40vh; }
+      .selector { flex: none; flex-direction: column; }
+      .panel { flex: none; min-height: 30vh; justify-content: center; padding: 32px 28px; }
+      .panel:hover { flex: none; }
+      .panel-desc { opacity: 1; transform: none; margin-bottom: 16px; }
+      .panel-num { display: none; }
+      .panel-title { font-size: 1.8rem; margin-bottom: 10px; }
+      .panel-soon { top: 16px; left: 28px; }
     }
 
     /* ── SPLASH ── */
     .splash {
       position: fixed; inset: 0; z-index: 9999;
       background: #f3e8de;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 20px;
+      display: flex; align-items: center; justify-content: center;
       pointer-events: none;
       transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .splash.splash--hidden { opacity: 0; }
     .splash__logo {
       width: 360px; max-width: 80vw; display: block;
-      animation: splashUp 0.7s cubic-bezier(0.4,0,0.2,1) both;
+      animation: fadeUp 0.7s cubic-bezier(0.4,0,0.2,1) both;
     }
-    @keyframes splashUp {
+    @keyframes fadeUp {
       from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
@@ -221,6 +188,12 @@
     <img src="images/logo-indigo-transparente.png" alt="índigo" class="splash__logo" />
   </div>
 
+  <!-- ── BRAND HEADER ── -->
+  <div class="brand">
+    <img src="images/logo-indigo-transparente.png" alt="Índigo" class="brand__logo" />
+  </div>
+
+  <!-- ── SELECTOR ── -->
   <div class="selector">
 
     <!-- ALFAJORES -->
