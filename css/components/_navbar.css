@@ -42,6 +42,18 @@
   transition: transform var(--duration), color var(--duration);
 }
 
+.navbar__back-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-60);
+  transition: color var(--duration);
+}
+
+.navbar__logo:hover .navbar__back-label {
+  color: var(--color-indigo);
+}
+
 .navbar__logo:hover .navbar__back-arrow {
   transform: translateX(-3px);
   color: var(--color-indigo);
