@@ -19,7 +19,7 @@
 .hero__logo {
   width: 420px;
   max-width: 85vw;
-  margin: 0 auto var(--space-8);
+  margin: 0 auto var(--space-4);
   display: block;
 }
 
