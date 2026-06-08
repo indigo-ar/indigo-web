@@ -871,6 +871,13 @@ p { line-height: 1.75; }
 @media (max-width: 600px) {
   .section-pad { padding: 56px 0; }
 
+  /* Alineación consistente: todo a la izquierda */
+  .section-header,
+  .gallery-header,
+  .faq-header { text-align: left; }
+  .gallery-header h2 { margin-top: 12px; }
+  .reviews-grid .review-card { text-align: left; }
+
   /* Hero */
   .hero { padding: 88px 20px 48px; }
   .hero-logo-hero { width: 200px; margin-bottom: 28px; }
