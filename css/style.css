@@ -140,6 +140,9 @@ p { line-height: 1.75; }
   text-decoration: none;
   transition: color 0.2s;
   flex: 0 0 auto;
+  /* En desktop va al final, antes del carrito */
+  order: 10;
+  margin-left: 24px;
 }
 .nav-back:hover { color: var(--indigo); }
 #navbar.scrolled .nav-back { color: var(--ink-60); }
