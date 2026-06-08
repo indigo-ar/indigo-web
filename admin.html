@@ -222,7 +222,9 @@
   </div>
 
   <script type="module">
-    const API = 'http://localhost:3001/api';
+    const API = window.location.hostname === 'localhost'
+      ? 'http://localhost:3001/api'
+      : 'https://indigo-backend-production.up.railway.app/api';
     let token = sessionStorage.getItem('indigo_admin_token');
     let filtroActual = '';
 
