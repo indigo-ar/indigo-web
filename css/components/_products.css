@@ -47,12 +47,11 @@
 }
 
 .chip {
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 500;
-  padding: 4px 10px;
-  border-radius: 100px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 /* Tapas */

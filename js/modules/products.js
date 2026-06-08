@@ -17,8 +17,8 @@ function renderGrid(grid) {
     <div class="product-card">
       <p class="product-card__number">0${index + 1}</p>
       <div class="product-card__chips">
-        <span class="chip chip--tapa chip--${product.tapa}">${product.tapa === 'vainilla' ? 'Vainilla' : 'Chocolate'}</span>
-        <span class="chip chip--cob chip--${product.cobertura}">${product.cobertura === 'blanco' ? 'Blanco' : product.cobertura === 'leche' ? 'Con leche' : 'Semiamargo'}</span>
+        <span class="chip chip--${product.tapa}" title="${product.tapa === 'vainilla' ? 'Vainilla' : 'Chocolate'}"></span>
+        <span class="chip chip--${product.cobertura}" title="${product.cobertura === 'blanco' ? 'Blanco' : product.cobertura === 'leche' ? 'Con leche' : 'Semiamargo'}"></span>
       </div>
       <p class="product-card__name">${product.name}</p>
       <p class="product-card__desc">${product.desc}</p>
