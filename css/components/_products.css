@@ -154,14 +154,16 @@
   font-weight: 300;
 }
 
-.box-card .btn--filled {
+.box-card .btn--filled,
+.box-card .btn-filled {
   background: var(--color-white);
   color: var(--color-indigo);
   border-color: var(--color-white);
   flex-shrink: 0;
 }
 
-.box-card .btn--filled:hover {
+.box-card .btn--filled:hover,
+.box-card .btn-filled:hover {
   background: var(--color-indigo-pale);
   border-color: var(--color-indigo-pale);
 }
