@@ -116,7 +116,10 @@
   .about__media { aspect-ratio: 16/9; }
   .about__media-frame { display: none; }
   .intro-band__inner { flex-direction: column; gap: var(--space-5); }
-  .intro-band__text { border-left: none; padding-left: 0; border-top: 1px solid var(--color-copper); padding-top: var(--space-5); }
+  .intro-band__row { flex-direction: column; gap: var(--space-4); align-items: flex-start; }
+  .intro-band__lineart { width: 100px; }
+  .intro-band__text { border-left: none; padding-left: 0; border-top: 1px solid var(--color-blush); padding-top: var(--space-5); }
+  .intro-band__number { font-size: 3.5rem; }
 }
 
 @media (max-width: 600px) {
