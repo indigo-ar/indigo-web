@@ -156,9 +156,9 @@
 
 .box-card .btn--filled,
 .box-card .btn-filled {
-  background: var(--color-white);
-  color: var(--color-indigo);
-  border-color: var(--color-white);
+  background: transparent;
+  color: var(--color-blush);
+  border-color: var(--color-blush);
   flex-shrink: 0;
 }
 
