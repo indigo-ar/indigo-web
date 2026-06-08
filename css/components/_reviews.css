@@ -1,6 +1,6 @@
 .reviews { background: rgba(76, 39, 68, 0.5); }
 
-.reviews .section-header .label { color: rgba(243, 232, 222, 0.5); }
+.reviews .section-header .label { color: var(--color-blush); opacity: 0.7; }
 .reviews .section-header h2 { color: var(--color-blush); }
 
 .reviews-grid {
@@ -10,7 +10,7 @@
 }
 
 .review-card {
-  background: rgba(243, 232, 222, 0.07);
+  background: rgba(243, 232, 222, 0.12);
   padding: var(--space-7) var(--space-6);
   border: 1px solid rgba(243, 232, 222, 0.15);
   display: flex;
