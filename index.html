@@ -170,6 +170,30 @@
       .panel-title { font-size: 1.7rem; }
     }
 
+    /* ── PRÓXIMAMENTE ── */
+    .panel-soon {
+      position: absolute;
+      top: 28px; left: 48px;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 5px 12px;
+      border: 1px solid;
+      z-index: 1;
+    }
+    .panel--cenas .panel-soon {
+      color: #9b4c34;
+      border-color: rgba(155,76,52,0.35);
+    }
+    .panel--market .panel-soon {
+      color: rgba(255,255,255,0.6);
+      border-color: rgba(255,255,255,0.25);
+    }
+    @media (max-width: 700px) {
+      .panel-soon { top: 20px; left: 32px; }
+    }
+
     /* ── SPLASH ── */
     .splash {
       position: fixed; inset: 0; z-index: 9999;
@@ -213,6 +237,7 @@
     <!-- CENAS -->
     <a href="cenas.html" class="panel panel--cenas">
       <span class="panel-num">02</span>
+      <span class="panel-soon">Próximamente</span>
       <div class="panel-content">
         <span class="panel-tag">Experiencias gastronómicas</span>
         <h2 class="panel-title">Índigo<br>Cenas</h2>
@@ -224,6 +249,7 @@
     <!-- MARKET -->
     <a href="market.html" class="panel panel--market">
       <span class="panel-num">03</span>
+      <span class="panel-soon">Próximamente</span>
       <div class="panel-content">
         <span class="panel-tag">Productos seleccionados</span>
         <h2 class="panel-title">Índigo<br>Market</h2>
