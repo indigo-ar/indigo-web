@@ -1,0 +1,40 @@
+/* ── Splash screen ── */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--color-blush);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  pointer-events: none;
+  transition: opacity 0.8s var(--ease-out);
+}
+
+.splash.splash--hidden {
+  opacity: 0;
+}
+
+.splash__logo {
+  width: 220px;
+  max-width: 60vw;
+  display: block;
+  animation: splashFadeUp 0.7s var(--ease-out) both;
+}
+
+.splash__name {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--color-indigo);
+  opacity: 0.6;
+  animation: splashFadeUp 0.7s 0.15s var(--ease-out) both;
+}
+
+@keyframes splashFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

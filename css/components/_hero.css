@@ -9,10 +9,18 @@
   padding: calc(var(--nav-height) + var(--space-8)) var(--space-5) var(--space-8);
 }
 
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .hero__logo {
   width: 340px;
   max-width: 80vw;
-  margin-bottom: var(--space-8);
+  margin: 0 auto var(--space-8);
+  display: block;
 }
 
 .hero__label {
