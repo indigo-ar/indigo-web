@@ -40,13 +40,29 @@
   margin-bottom: var(--space-6);
 }
 
-.product-card__icon {
-  font-family: monospace;
-  color: var(--color-indigo);
-  font-size: 2rem;
+.product-card__chips {
+  display: flex;
+  gap: var(--space-2);
   margin-bottom: var(--space-6);
-  line-height: 1;
 }
+
+.chip {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+/* Tapas */
+.chip--vainilla   { background: #f5e6c8; color: #7a5c2e; }
+.chip--chocolate  { background: #3a1f10; color: #c9a07a; }
+
+/* Coberturas */
+.chip--blanco { background: #f0ece4; color: #7a6f62; }
+.chip--leche  { background: #c4894a; color: #fff; }
+.chip--semi   { background: #1e110a; color: #a07850; }
 
 .product-card__name {
   font-family: var(--font-serif);
