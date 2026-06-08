@@ -132,32 +132,28 @@ p { line-height: 1.75; }
   transition: color 0.2s;
 }
 .nav-cart:hover { color: var(--indigo); }
-.nav-back {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 0.75rem; letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-60);
-  text-decoration: none;
-  transition: color 0.2s;
-  flex: 0 0 auto;
-  margin-right: 24px;
+.nav-logo-back {
+  display: flex; align-items: center; gap: 8px;
 }
-.nav-back:hover { color: var(--indigo); }
-#navbar.scrolled .nav-back { color: var(--ink-60); }
+.nav-back-arrow {
+  color: var(--ink-30);
+  flex-shrink: 0;
+  transition: transform 0.2s, color 0.2s;
+}
+.nav-logo-back:hover .nav-back-arrow {
+  transform: translateX(-3px);
+  color: var(--indigo);
+}
 
-/* Mobile nav: flecha izq | logo centro | carrito der */
+/* Mobile nav: ← logo izq | carrito der */
 @media (max-width: 600px) {
   #navbar .nav-inner {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 10px 16px;
   }
-  #navbar .nav-back   { grid-column: 1; justify-self: start; }
-  #navbar .nav-logo   { grid-column: 2; justify-self: center; }
-  #navbar .nav-links  { display: none; }
-  #navbar .nav-cart   { grid-column: 3; justify-self: end; }
-  .nav-back-text { display: none; }
+  #navbar .nav-links { display: none; }
   .nav-logo-img { height: 40px; }
 }
 
