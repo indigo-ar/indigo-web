@@ -169,9 +169,40 @@
       .panel { min-height: 30vh; padding: 28px 24px; }
       .panel-title { font-size: 1.7rem; }
     }
+
+    /* ── SPLASH ── */
+    .splash {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #4c2744;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+      pointer-events: none;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .splash.splash--hidden { opacity: 0; }
+    .splash__logo {
+      width: 180px; max-width: 55vw; display: block;
+      animation: splashUp 0.7s cubic-bezier(0.4,0,0.2,1) both;
+    }
+    .splash__name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem; letter-spacing: 0.4em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55);
+      animation: splashUp 0.7s 0.15s cubic-bezier(0.4,0,0.2,1) both;
+    }
+    @keyframes splashUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
+
+  <!-- ── SPLASH ── -->
+  <div class="splash" id="splash">
+    <img src="images/logo.png" alt="índigo" class="splash__logo" />
+    <span class="splash__name">Índigo</span>
+  </div>
 
   <div class="selector">
 
@@ -210,5 +241,12 @@
 
   </div>
 
+  <script>
+    const splash = document.getElementById('splash');
+    setTimeout(() => {
+      splash.classList.add('splash--hidden');
+      splash.addEventListener('transitionend', () => splash.remove(), { once: true });
+    }, 1800);
+  </script>
 </body>
 </html>
