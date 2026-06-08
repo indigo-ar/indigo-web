@@ -3,7 +3,7 @@
 }
 
 .ingredients__header {
-  text-align: center;
+  text-align: left;
   margin-bottom: var(--space-9);
 }
 
@@ -64,9 +64,9 @@
   height: 100px;
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid var(--color-ink-10);
+  border: none;
   position: relative;
-  background: var(--color-indigo-pale);
+  background: transparent;
 }
 
 .ingredient-card__img img {
