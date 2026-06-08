@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Índigo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+
+    /* ── LOGO SUPERIOR ── */
+    .top-logo {
+      position: fixed; top: 32px; left: 50%; transform: translateX(-50%);
+      z-index: 10; text-align: center;
+      pointer-events: none;
+    }
+    .top-logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 300;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.9);
+      mix-blend-mode: overlay;
+    }
+
+    /* ── SELECTOR ── */
+    .selector {
+      display: flex;
+      height: 100vh;
+    }
+
+    .panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 56px 48px;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .panel:hover { flex: 1.6; }
+
+    /* Colores */
+    .panel--alfajores { background: #4c2744; }
+    .panel--cenas     { background: #f3e8de; }
+    .panel--market    { background: #254c42; }
+
+    /* Overlay sutil al hover */
+    .panel::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0);
+      transition: background 0.4s;
+    }
+    .panel:hover::before { background: rgba(0,0,0,0.06); }
+
+    /* Línea divisora */
+    .panel + .panel {
+      border-left: 1px solid rgba(255,255,255,0.1);
+    }
+    .panel--cenas + .panel {
+      border-left: 1px solid rgba(0,0,0,0.08);
+    }
+
+    /* Contenido */
+    .panel-content { position: relative; z-index: 1; }
+
+    .panel-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      opacity: 0.6;
+      display: block;
+    }
+    .panel--alfajores .panel-tag,
+    .panel--market    .panel-tag { color: rgba(255,255,255,0.7); }
+    .panel--cenas     .panel-tag { color: #c47955; opacity: 0.8; }
+
+    .panel-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .panel--alfajores .panel-title,
+    .panel--market    .panel-title { color: #fff; }
+    .panel--cenas     .panel-title { color: #9b4c34; }
+
+    .panel-desc {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      max-width: 260px;
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s 0.1s, transform 0.4s 0.1s;
+    }
+    .panel:hover .panel-desc { opacity: 1; transform: translateY(0); }
+    .panel--alfajores .panel-desc,
+    .panel--market    .panel-desc { color: rgba(255,255,255,0.65); }
+    .panel--cenas     .panel-desc { color: rgba(155,76,52,0.65); }
+
+    .panel-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.72rem; letter-spacing: 0.16em;
+      text-transform: uppercase; font-weight: 500;
+      padding: 12px 24px;
+      border: 1px solid;
+      transition: background 0.3s, color 0.3s;
+    }
+    .panel--alfajores .panel-cta {
+      color: #fff; border-color: rgba(255,255,255,0.4);
+    }
+    .panel--alfajores:hover .panel-cta {
+      background: rgba(255,255,255,0.12);
+    }
+    .panel--cenas .panel-cta {
+      color: #9b4c34; border-color: rgba(155,76,52,0.35);
+    }
+    .panel--cenas:hover .panel-cta {
+      background: rgba(155,76,52,0.08);
+    }
+    .panel--market .panel-cta {
+      color: #fff; border-color: rgba(255,255,255,0.4);
+    }
+    .panel--market:hover .panel-cta {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .panel-arrow {
+      display: inline-block;
+      transition: transform 0.3s;
+    }
+    .panel:hover .panel-arrow { transform: translateX(4px); }
+
+    /* Número decorativo */
+    .panel-num {
+      position: absolute;
+      top: 40px; right: 40px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem; font-weight: 300;
+      line-height: 1;
+      opacity: 0.06;
+      user-select: none;
+    }
+    .panel--alfajores .panel-num,
+    .panel--market    .panel-num { color: #fff; }
+    .panel--cenas     .panel-num { color: #9b4c34; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      html, body { overflow-y: auto; overflow-x: hidden; }
+      .selector { flex-direction: column; height: auto; min-height: 100svh; }
+      .panel { flex: none; min-height: 34vh; justify-content: center; padding: 40px 32px; }
+      .panel:hover { flex: none; }
+      .panel-desc { opacity: 1; transform: none; margin-bottom: 20px; }
+      .panel-num { display: none; }
+      .panel-title { font-size: 2rem; margin-bottom: 10px; }
+      .panel-tag { margin-bottom: 8px; }
+    }
+    @media (max-width: 400px) {
+      .panel { min-height: 30vh; padding: 28px 24px; }
+      .panel-title { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="selector">
+
+    <!-- ALFAJORES -->
+    <a href="alfajores.html" class="panel panel--alfajores">
+      <span class="panel-num">01</span>
+      <div class="panel-content">
+        <span class="panel-tag">Confitería de autor</span>
+        <h2 class="panel-title">Índigo<br>Alfajores</h2>
+        <p class="panel-desc">Alfajores artesanales hechos con ingredientes seleccionados. Dos tapas, dulce de leche, chocolate.</p>
+        <span class="panel-cta">Entrar <span class="panel-arrow">→</span></span>
+      </div>
+    </a>
+
+    <!-- CENAS -->
+    <a href="cenas.html" class="panel panel--cenas">
+      <span class="panel-num">02</span>
+      <div class="panel-content">
+        <span class="panel-tag">Experiencias gastronómicas</span>
+        <h2 class="panel-title">Índigo<br>Cenas</h2>
+        <p class="panel-desc">Cenas temáticas íntimas con menú de autor, ambientación y una experiencia diseñada para recordar.</p>
+        <span class="panel-cta">Entrar <span class="panel-arrow">→</span></span>
+      </div>
+    </a>
+
+    <!-- MARKET -->
+    <a href="market.html" class="panel panel--market">
+      <span class="panel-num">03</span>
+      <div class="panel-content">
+        <span class="panel-tag">Productos seleccionados</span>
+        <h2 class="panel-title">Índigo<br>Market</h2>
+        <p class="panel-desc">Una curaduría de productos gourmet, ingredientes y accesorios para los que viven bien la mesa.</p>
+        <span class="panel-cta">Entrar <span class="panel-arrow">→</span></span>
+      </div>
+    </a>
+
+  </div>
+
+</body>
+</html>

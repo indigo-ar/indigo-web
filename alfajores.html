@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Índigo — Alfajores de Autor</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#inicio" class="nav-logo">
+        <img src="images/logo.png" alt="índigo" class="nav-logo-img" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#productos">Colección</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#pedidos">Pedidos</a></li>
+      </ul>
+      <a href="index.html" class="nav-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Inicio
+      </a>
+      <button class="nav-cart" id="cartBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span>Carrito</span>
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="inicio" class="hero">
+    <div class="hero-center">
+      <img src="images/logo.png" alt="índigo" class="hero-logo-hero" />
+      <p class="hero-label">Alfajores de autor · Buenos Aires</p>
+      <div class="hero-divider"></div>
+      <p class="hero-copy">Ingredientes seleccionados, técnica precisa, resultado único.</p>
+      <a href="#productos" class="btn btn-indigo">Ver colección</a>
+    </div>
+  </section>
+
+  <!-- ── INTRO BAND ── -->
+  <div class="intro-band">
+    <div class="container">
+      <div class="intro-number">100%</div>
+      <p>Cada alfajor es elaborado de forma completamente artesanal, en pequeñas tandas que aseguran frescura y un control de calidad que ninguna producción en serie puede igualar.</p>
+    </div>
+  </div>
+
+  <!-- ── NOSOTROS ── -->
+  <section id="nosotros" class="about section-pad">
+    <div class="container">
+      <div class="about-media reveal">
+        <div class="about-media-inner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>Agregar foto</span>
+        </div>
+        <div class="about-frame"></div>
+      </div>
+      <div class="about-text reveal">
+        <span class="label">Nuestra historia</span>
+        <h2>Un emprendimiento<br><em>de familia</em></h2>
+        <p>Índigo nació de las ganas de hacer algo propio, con identidad. Nos especializamos en un producto simple y bien ejecutado: alfajores de dos tapas, siempre rellenos de dulce de leche.</p>
+        <p>Trabajamos con ingredientes seleccionados y ponemos el mismo cuidado en cada unidad. Sin atajos, sin conservantes, sin producción en serie.</p>
+        <div class="about-stats">
+          <div>
+            <div class="stat-number">6</div>
+            <div class="stat-label">Variedades</div>
+          </div>
+          <div>
+            <div class="stat-number">3</div>
+            <div class="stat-label">Creadores</div>
+          </div>
+          <div>
+            <div class="stat-number">0</div>
+            <div class="stat-label">Conservantes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRODUCTOS ── -->
+  <section id="productos" class="products section-pad">
+    <div class="container">
+      <div class="products-header reveal">
+        <div>
+          <span class="label" style="display:block;margin-bottom:16px">Colección</span>
+          <h2>Nuestros<br>alfajores</h2>
+        </div>
+        <p>Seleccioná los que querés y sumálos al carrito para armar tu pedido.</p>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+
+      <!-- Caja × 8 -->
+      <div class="box-section reveal">
+        <div class="box-card">
+          <div class="box-card-left">
+            <span class="label">Ideal para regalar</span>
+            <h3 class="box-title">Caja × 8</h3>
+            <p class="box-desc">Ocho alfajores a tu elección. Combiná tapas y coberturas como quieras. Packaging incluido.</p>
+            <p class="box-price">$20.000</p>
+          </div>
+          <div class="box-card-right">
+            <button class="btn btn-filled" id="openBoxModal">Armar mi caja</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RESEÑAS ── -->
+  <section class="reviews section-pad">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="label">Lo que dicen</span>
+        <h2>Reseñas</h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Son los mejores alfajores que comí en mi vida. El chocolate semiamargo con tapas de vainilla es una locura. Ya encargué tres veces."</p>
+          <p class="review-author">— Valentina M.</p>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Los pedí para un regalo y la persona quedó impresionada. El packaging es hermoso y el sabor no tiene comparación con nada comprado."</p>
+          <p class="review-author">— Tomás R.</p>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"La caja de ocho es ideal para regalar. Calidad increíble, se nota que están hechos con cuidado. Los recomiendo sin dudarlo."</p>
+          <p class="review-author">— Sofía G.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALERÍA ── -->
+  <section id="galeria" class="gallery section-pad">
+    <div class="container">
+      <div class="gallery-header">
+        <span class="label">Galería</span>
+        <h2 style="color:white;margin-top:16px">El detalle<br><em>lo es todo</em></h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="g-item">
+          <img src="images/foto1.jpg" alt="Alfajores índigo" class="g-img" onerror="this.parentElement.innerHTML='<div class=\'g-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'1\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg><span>foto1.jpg</span></div>'" />
+        </div>
+        <div class="g-item">
+          <img src="images/foto2.jpg" alt="Alfajores índigo" class="g-img" onerror="this.parentElement.innerHTML='<div class=\'g-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'1\'/></svg><span>foto2.jpg</span></div>'" />
+        </div>
+        <div class="g-item">
+          <img src="images/foto3.jpg" alt="Alfajores índigo" class="g-img" onerror="this.parentElement.innerHTML='<div class=\'g-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'1\'/></svg><span>foto3.jpg</span></div>'" />
+        </div>
+        <div class="g-item">
+          <img src="images/foto4.jpg" alt="Alfajores índigo" class="g-img" />
+        </div>
+        <div class="g-item">
+          <img src="images/foto3.jpg" alt="Alfajores índigo" class="g-img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PEDIDOS ── -->
+  <section id="pedidos" class="order section-pad">
+    <div class="container">
+      <div class="order-info reveal">
+        <span class="label">Pedidos</span>
+        <h2>Hacé tu<br>encargo</h2>
+        <p>Tomamos pedidos por WhatsApp o formulario. Entregas en CABA y GBA. Consultanos por cajas personalizadas para eventos o regalos corporativos.</p>
+        <div class="contact-options">
+          <a href="https://wa.me/5491134687322?text=Hola%2C%20quiero%20encargar%20alfajores%20%C3%8Dndigo" target="_blank" class="contact-opt">
+            <div class="contact-opt-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div class="contact-opt-text">
+              <strong>WhatsApp</strong>
+              <span>Respuesta en menos de 24 hs</span>
+            </div>
+          </a>
+          <a href="https://instagram.com" target="_blank" class="contact-opt">
+            <div class="contact-opt-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+            <div class="contact-opt-text">
+              <strong>Instagram</strong>
+              <span>@indigo.alfajores</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <form class="order-form" id="orderForm" novalidate>
+        <div class="form-row">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" placeholder="Tu nombre completo" required />
+        </div>
+        <div class="form-row">
+          <label for="tel">WhatsApp</label>
+          <input type="tel" id="tel" placeholder="+54 9 11 0000-0000" required />
+        </div>
+        <div class="form-row">
+          <label for="mensaje">Notas adicionales</label>
+          <textarea id="mensaje" rows="3" placeholder="Cantidad, fechas de entrega, personalizaciones..."></textarea>
+        </div>
+        <div class="cart-in-form" id="cartInForm">
+          <span class="label">Productos seleccionados</span>
+          <div id="cartInFormItems"></div>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-filled btn-full">Enviar pedido por WhatsApp</button>
+          <p class="form-note" id="formMsg"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="faq section-pad">
+    <div class="container">
+      <div class="faq-inner">
+        <div class="faq-header reveal">
+          <span class="label">Preguntas frecuentes</span>
+          <h2>Todo lo que<br>necesitás saber</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">¿Con cuánta anticipación hay que encargar?</button>
+            <div class="faq-a"><p>Recomendamos encargar con al menos 48 horas de anticipación. Para pedidos grandes o fechas especiales, avisanos con más tiempo.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">¿Hay un mínimo de pedido?</button>
+            <div class="faq-a"><p>El mínimo es de 4 alfajores. También podés elegir la caja de 8 con las combinaciones que quieras.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">¿Hacen envíos?</button>
+            <div class="faq-a"><p>Sí, hacemos envíos dentro de CABA y GBA. El costo de envío se coordina por WhatsApp según la zona. También podés retirar sin cargo.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">¿Cuánto duran los alfajores?</button>
+            <div class="faq-a"><p>Duran hasta 7 días conservados en un lugar fresco y seco, fuera de la heladera. Al no tener conservantes, recomendamos consumirlos lo antes posible.</p></div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">¿Hacen cajas personalizadas para eventos?</button>
+            <div class="faq-a"><p>Sí. Consultanos por WhatsApp para cotizar cajas para cumpleaños, casamientos, empresas u otras ocasiones especiales.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <p class="footer-logo">Índigo</p>
+          <p class="footer-tagline">Alfajores de autor · Buenos Aires</p>
+        </div>
+        <ul class="footer-links">
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#productos">Colección</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#pedidos">Pedidos</a></li>
+        </ul>
+      </div>
+      <p class="footer-copy">© 2026 Índigo. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ── CARRITO ── -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="drawer-head">
+      <h3>Tu selección</h3>
+      <button class="drawer-close" id="cartClose">✕</button>
+    </div>
+    <div class="drawer-items" id="drawerItems">
+      <p class="drawer-empty">Aún no agregaste alfajores</p>
+    </div>
+    <div class="drawer-foot" id="drawerFoot">
+      <div class="drawer-total">
+        <span>Total estimado</span>
+        <span class="drawer-total-amount" id="drawerTotal">$0</span>
+      </div>
+      <button class="btn btn-filled btn-full" id="drawerCheckout" onclick="checkout()">Pagar con MercadoPago</button>
+    </div>
+  </aside>
+
+  <!-- ── MODAL CAJA ── -->
+  <div class="modal-overlay" id="boxModalOverlay"></div>
+  <div class="modal" id="boxModal">
+    <div class="modal-head">
+      <div>
+        <h3>Armá tu caja</h3>
+        <p class="modal-sub">Elegí 8 alfajores combinando lo que quieras</p>
+      </div>
+      <button class="modal-close" id="boxModalClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-products" id="modalProducts"></div>
+      <div class="modal-counter">
+        <span>Seleccionados:</span>
+        <strong><span id="boxCount">0</span> / 8</strong>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-filled btn-full" id="addBoxToCart" disabled>Agregar caja al carrito — $20.000</button>
+    </div>
+  </div>
+
+  <!-- ── WA FLOTANTE ── -->
+  <a href="https://wa.me/5491134687322?text=Hola%2C%20quiero%20encargar%20alfajores%20%C3%8Dndigo" target="_blank" class="wa-float" aria-label="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
