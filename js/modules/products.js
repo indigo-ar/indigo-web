@@ -15,8 +15,7 @@ export function init() {
 function renderGrid(grid) {
   grid.innerHTML = PRODUCTS.map((product, index) => `
     <div class="product-card">
-      <p class="product-card__number">0${index + 1}</p>
-      <div class="product-card__chips">
+<div class="product-card__chips">
         <span class="chip chip--${product.tapa}" title="${product.tapa === 'vainilla' ? 'Vainilla' : 'Chocolate'}"></span>
         <span class="chip chip--${product.cobertura}" title="${product.cobertura === 'blanco' ? 'Blanco' : product.cobertura === 'leche' ? 'Con leche' : 'Semiamargo'}"></span>
       </div>
