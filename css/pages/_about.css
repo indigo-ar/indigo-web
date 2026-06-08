@@ -67,7 +67,7 @@
 }
 
 .intro-band {
-  background: rgba(76, 39, 68, 0.06);
+  background: rgba(76, 39, 68, 0.5);
   padding: var(--space-9) 0;
   border-bottom: 1px solid var(--color-ink-10);
 }
