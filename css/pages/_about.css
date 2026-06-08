@@ -75,11 +75,11 @@
 .intro-band__inner {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-5);
 }
 
 .intro-band__lineart {
-  width: 56px;
+  width: 80px;
   opacity: 0.35;
   display: block;
   filter: blur(0.6px);
