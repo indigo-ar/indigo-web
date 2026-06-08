@@ -164,8 +164,9 @@
 
 .box-card .btn--filled:hover,
 .box-card .btn-filled:hover {
-  background: var(--color-indigo-pale);
-  border-color: var(--color-indigo-pale);
+  background: var(--color-blush);
+  border-color: var(--color-blush);
+  color: var(--color-indigo);
 }
 
 /* ── Responsive ── */
