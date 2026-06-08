@@ -113,5 +113,7 @@ function renderFormSummary() {
 
 // Expose changeQty globally for inline onclick handlers
 window.__cartChangeQty = (id, delta) => {
-  cart.changeQty(id, delta);
+  // id puede ser número o string (ej: box-123)
+  const numId = Number(id);
+  cart.changeQty(isNaN(numId) || String(numId) !== String(id) ? id : numId, delta);
 };

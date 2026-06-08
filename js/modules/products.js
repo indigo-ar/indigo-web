@@ -43,8 +43,32 @@ function handleAddToCart(btn) {
   if (!product) return;
 
   cart.addItem(product);
-  cartUI.open();
+  showToast(product.name);
 
   btn.classList.add('product-card__add--added');
   setTimeout(() => btn.classList.remove('product-card__add--added'), 500);
+}
+
+function showToast(name) {
+  let toast = document.getElementById('cartToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'cartToast';
+    toast.style.cssText = `
+      position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(16px);
+      background:#2a1520; color:white; padding:10px 20px;
+      font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase;
+      opacity:0; transition:all 0.3s; pointer-events:none; z-index:999;
+      white-space:nowrap;
+    `;
+    document.body.appendChild(toast);
+  }
+  toast.textContent = `✓ ${name} agregado`;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(16px)';
+  }, 2000);
 }

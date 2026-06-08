@@ -93,9 +93,20 @@ function handleAddBox() {
     desc:  detail,
     price: BOX.price,
     qty:   1,
-    icon:  BOX.icon,
   });
 
   closeModal();
-  cartUI.open();
+
+  // Toast en vez de abrir el drawer
+  const toast = document.getElementById('cartToast');
+  if (toast) {
+    toast.textContent = '✓ Caja agregada al carrito';
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(16px)';
+    }, 2000);
+  }
 }
