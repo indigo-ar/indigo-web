@@ -1,4 +1,706 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"/><title>Índigo Cenas</title>
-<style>body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f3e8de;font-family:'Georgia',serif;flex-direction:column;gap:16px;}
-h1{font-size:3rem;color:#2a1520;font-weight:300;}p{color:rgba(42,21,32,0.5);font-size:0.9rem;letter-spacing:0.1em;}a{color:#4c2744;font-size:0.8rem;letter-spacing:0.1em;}</style></head>
-<body><h1>Índigo Cenas</h1><p>PRÓXIMAMENTE</p><a href="index.html">← Volver</a></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Índigo — Cenas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f3e8de;
+      color: #2a1520;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(243, 232, 222, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(196, 121, 85, 0.15);
+    }
+    .nav-logo img { height: 32px; display: block; }
+    .nav-back {
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #c47955; text-decoration: none; font-weight: 500;
+      display: flex; align-items: center; gap: 8px;
+      transition: gap 0.3s;
+    }
+    .nav-back:hover { gap: 12px; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(76,39,68,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: #c47955; margin-bottom: 24px; opacity: 0.85;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      line-height: 1;
+      color: #2a1520;
+      margin-bottom: 16px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: #4c2744;
+    }
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: rgba(42,21,32,0.55);
+      max-width: 480px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      font-weight: 500; color: #4c2744;
+      padding: 14px 32px;
+      border: 1px solid rgba(76,39,68,0.35);
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+    .hero-cta:hover { background: #4c2744; color: #f3e8de; }
+    .hero-scroll {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .hero-scroll span {
+      font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(42,21,32,0.35);
+    }
+    .hero-scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(196,121,85,0.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+
+    /* ── CONCEPTO ── */
+    .concepto {
+      max-width: 900px; margin: 0 auto;
+      padding: 80px 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center;
+    }
+    .concepto-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      line-height: 1.15;
+      margin-bottom: 24px;
+      color: #2a1520;
+    }
+    .concepto-text p {
+      font-size: 0.85rem; line-height: 1.9;
+      color: rgba(42,21,32,0.65);
+      margin-bottom: 16px;
+    }
+    .concepto-stats {
+      display: flex; flex-direction: column; gap: 32px;
+    }
+    .stat {
+      border-left: 1px solid rgba(196,121,85,0.35);
+      padding-left: 24px;
+    }
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300;
+      line-height: 1; color: #4c2744;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: rgba(42,21,32,0.5);
+    }
+
+    /* ── DIVISOR ── */
+    .divider {
+      width: 100%; max-width: 900px; margin: 0 auto;
+      height: 1px; background: rgba(196,121,85,0.2);
+    }
+
+    /* ── EXPERIENCIAS ── */
+    .experiencias { padding: 80px 40px; max-width: 1100px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-eyebrow {
+      font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: #c47955; margin-bottom: 16px; display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: #2a1520; line-height: 1.1;
+    }
+
+    .cenas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    /* ── CENA CARD ── */
+    .cena-card {
+      position: relative;
+      background: #fff;
+      padding: 40px 36px;
+      cursor: default;
+      transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.4s;
+      overflow: hidden;
+    }
+    .cena-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(42,21,32,0.1);
+      z-index: 2;
+    }
+    .cena-card.featured {
+      background: #4c2744; color: #f3e8de;
+      grid-row: span 1;
+    }
+
+    .cena-flag {
+      font-size: 2.2rem; margin-bottom: 20px; display: block;
+      line-height: 1;
+    }
+    .cena-tag {
+      font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase;
+      margin-bottom: 10px; display: block;
+    }
+    .cena-card:not(.featured) .cena-tag { color: #c47955; }
+    .cena-card.featured .cena-tag { color: rgba(243,232,222,0.5); }
+
+    .cena-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: 1.9rem; line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .cena-card:not(.featured) .cena-name { color: #2a1520; }
+    .cena-card.featured .cena-name { color: #f3e8de; }
+
+    .cena-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
+    .cena-card:not(.featured) .cena-subtitle { color: rgba(42,21,32,0.45); }
+    .cena-card.featured .cena-subtitle { color: rgba(243,232,222,0.5); }
+
+    .cena-menu { list-style: none; margin-bottom: 28px; }
+    .cena-menu li {
+      display: flex; align-items: baseline; gap: 10px;
+      font-size: 0.78rem; line-height: 1.5; padding: 7px 0;
+      border-bottom: 1px solid;
+    }
+    .cena-card:not(.featured) .cena-menu li { border-color: rgba(42,21,32,0.07); color: rgba(42,21,32,0.7); }
+    .cena-card.featured .cena-menu li { border-color: rgba(243,232,222,0.12); color: rgba(243,232,222,0.75); }
+
+    .menu-course {
+      font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase;
+      flex-shrink: 0; padding-top: 2px;
+    }
+    .cena-card:not(.featured) .menu-course { color: #c47955; }
+    .cena-card.featured .menu-course { color: rgba(196,121,85,0.75); }
+
+    .cena-bebida {
+      font-size: 0.72rem; letter-spacing: 0.05em;
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 28px;
+    }
+    .cena-card:not(.featured) .cena-bebida { color: rgba(42,21,32,0.5); }
+    .cena-card.featured .cena-bebida { color: rgba(243,232,222,0.5); }
+    .cena-bebida::before {
+      content: '';
+      width: 16px; height: 1px;
+      flex-shrink: 0;
+    }
+    .cena-card:not(.featured) .cena-bebida::before { background: rgba(42,21,32,0.2); }
+    .cena-card.featured .cena-bebida::before { background: rgba(243,232,222,0.25); }
+
+    .cena-status {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      font-weight: 500; padding: 5px 12px;
+      display: inline-block; border: 1px solid;
+    }
+    .status-disponible {
+      color: #4c2744; border-color: rgba(76,39,68,0.35);
+      background: rgba(76,39,68,0.05);
+    }
+    .featured .status-disponible {
+      color: #f3e8de; border-color: rgba(243,232,222,0.35);
+      background: rgba(243,232,222,0.08);
+    }
+    .status-proximo {
+      color: rgba(42,21,32,0.4); border-color: rgba(42,21,32,0.15);
+    }
+    .featured .status-proximo {
+      color: rgba(243,232,222,0.4); border-color: rgba(243,232,222,0.2);
+    }
+
+    /* Número decorativo */
+    .cena-num {
+      position: absolute; bottom: 24px; right: 28px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem; font-weight: 300;
+      line-height: 1; user-select: none;
+    }
+    .cena-card:not(.featured) .cena-num { color: rgba(42,21,32,0.04); }
+    .cena-card.featured .cena-num { color: rgba(243,232,222,0.06); }
+
+    /* ── COMO FUNCIONA ── */
+    .como-funciona {
+      padding: 100px 40px;
+      background: #2a1520;
+      color: #f3e8de;
+      text-align: center;
+    }
+    .como-funciona .section-eyebrow { color: rgba(196,121,85,0.8); }
+    .como-funciona .section-title { color: #f3e8de; margin-bottom: 64px; }
+
+    .pasos {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    }
+    .paso {
+      padding: 40px 28px;
+      border: 1px solid rgba(243,232,222,0.08);
+      text-align: left;
+    }
+    .paso-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 300;
+      line-height: 1; color: rgba(196,121,85,0.3);
+      margin-bottom: 20px;
+    }
+    .paso-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300; font-size: 1.25rem;
+      color: #f3e8de; margin-bottom: 10px;
+    }
+    .paso-desc {
+      font-size: 0.78rem; line-height: 1.8;
+      color: rgba(243,232,222,0.45);
+    }
+
+    /* ── RESERVA ── */
+    .reserva {
+      padding: 100px 40px;
+      max-width: 640px; margin: 0 auto;
+      text-align: center;
+    }
+    .reserva .section-eyebrow { margin-bottom: 16px; }
+    .reserva .section-title { margin-bottom: 20px; }
+    .reserva-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 1.1rem;
+      color: rgba(42,21,32,0.5);
+      margin-bottom: 48px; line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 16px; text-align: left;
+    }
+    .form-label {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(42,21,32,0.5); display: block; margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      background: #fff;
+      border: 1px solid rgba(42,21,32,0.12);
+      border-radius: 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: #2a1520;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-control:focus { border-color: #4c2744; }
+    .form-control::placeholder { color: rgba(42,21,32,0.25); }
+
+    select.form-control { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(42,21,32,0.3)'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .form-submit {
+      width: 100%; margin-top: 8px;
+      padding: 16px;
+      background: #4c2744; color: #f3e8de;
+      border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+      transition: background 0.3s;
+    }
+    .form-submit:hover { background: #6b3860; }
+
+    .form-note {
+      font-size: 0.72rem; color: rgba(42,21,32,0.4);
+      margin-top: 20px; line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px;
+      border-top: 1px solid rgba(42,21,32,0.08);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo img { height: 24px; opacity: 0.4; }
+    .footer-text {
+      font-size: 0.68rem; letter-spacing: 0.1em;
+      color: rgba(42,21,32,0.35);
+    }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .cenas-grid { grid-template-columns: 1fr 1fr; }
+      .concepto { grid-template-columns: 1fr; gap: 40px; }
+      .pasos { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .hero { padding: 100px 24px 60px; }
+      .cenas-grid { grid-template-columns: 1fr; }
+      .experiencias, .concepto, .reserva { padding-left: 24px; padding-right: 24px; }
+      .pasos { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <a href="index.html" class="nav-back">← Volver</a>
+    <div class="nav-logo">
+      <img src="images/logo-indigo-transparente.png" alt="Índigo" />
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <p class="hero-eyebrow">Experiencias gastronómicas</p>
+    <h1 class="hero-title">Cenas<br><em>Temáticas</em></h1>
+    <p class="hero-subtitle">Una mesa íntima. Un menú de pasos. Una cultura que descubrir.</p>
+    <a href="#reserva" class="hero-cta">Reservar lugar <span>→</span></a>
+    <div class="hero-scroll">
+      <span>Explorar</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ── CONCEPTO ── -->
+  <section>
+    <div class="concepto reveal">
+      <div class="concepto-text">
+        <h2>Una experiencia<br>diseñada para recordar</h2>
+        <p>Cada cena es un viaje. Elegimos una cultura, construimos un menú de pasos con sus platos más representativos y creamos el ambiente que los acompaña.</p>
+        <p>Grupos pequeños, atención personalizada, y la certeza de que cada detalle estuvo pensado para vos.</p>
+      </div>
+      <div class="concepto-stats">
+        <div class="stat">
+          <div class="stat-number">8–10</div>
+          <div class="stat-label">personas por cena</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">4</div>
+          <div class="stat-label">pasos por menú</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">culturas por descubrir</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── EXPERIENCIAS ── -->
+  <section class="experiencias" id="experiencias">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">El menú</span>
+      <h2 class="section-title">Destinos disponibles</h2>
+    </div>
+
+    <div class="cenas-grid">
+
+      <!-- ESPAÑA — featured -->
+      <div class="cena-card featured reveal">
+        <span class="cena-flag">🇪🇸</span>
+        <span class="cena-tag">Experiencia realizada</span>
+        <h3 class="cena-name">España</h3>
+        <p class="cena-subtitle">Una tarde en Madrid</p>
+        <ul class="cena-menu">
+          <li><span class="menu-course">Entrada</span> Tortilla española y croquetas de jamón crudo</li>
+          <li><span class="menu-course">Principal</span> Paella valenciana</li>
+          <li><span class="menu-course">Postre</span> Churros con chocolate, crema catalana</li>
+          <li><span class="menu-course">Trago</span> Sangría de la casa</li>
+        </ul>
+        <span class="cena-status status-disponible">Disponible</span>
+        <span class="cena-num">01</span>
+      </div>
+
+      <!-- ITALIA -->
+      <div class="cena-card reveal">
+        <span class="cena-flag">🇮🇹</span>
+        <span class="cena-tag">Próxima cena</span>
+        <h3 class="cena-name">Italia</h3>
+        <p class="cena-subtitle">La dolce vita</p>
+        <ul class="cena-menu">
+          <li><span class="menu-course">Aperitivo</span> Bruschette al pomodoro, antipasto misto</li>
+          <li><span class="menu-course">Primer</span> Risotto al funghi porcini</li>
+          <li><span class="menu-course">Principal</span> Osso buco alla milanese</li>
+          <li><span class="menu-course">Postre</span> Tiramisú artesanal</li>
+        </ul>
+        <div class="cena-bebida">Aperol Spritz · Vino rosso della casa</div>
+        <span class="cena-status status-disponible">Disponible</span>
+        <span class="cena-num">02</span>
+      </div>
+
+      <!-- JAPÓN -->
+      <div class="cena-card reveal">
+        <span class="cena-flag">🇯🇵</span>
+        <span class="cena-tag">Próxima cena</span>
+        <h3 class="cena-name">Japón</h3>
+        <p class="cena-subtitle">Omotenashi — el arte de recibir</p>
+        <ul class="cena-menu">
+          <li><span class="menu-course">Aperitivo</span> Edamame, gyoza al vapor</li>
+          <li><span class="menu-course">Primer</span> Ramen tonkotsu con chashu</li>
+          <li><span class="menu-course">Principal</span> Sushi & sashimi selection</li>
+          <li><span class="menu-course">Postre</span> Mochi de matcha, dorayaki</li>
+        </ul>
+        <div class="cena-bebida">Sake frío · Cerveza Sapporo</div>
+        <span class="cena-status status-disponible">Disponible</span>
+        <span class="cena-num">03</span>
+      </div>
+
+      <!-- NORTE AMERICANA -->
+      <div class="cena-card reveal">
+        <span class="cena-flag">🇺🇸</span>
+        <span class="cena-tag">Próxima cena</span>
+        <h3 class="cena-name">Norte América</h3>
+        <p class="cena-subtitle">Southern comfort</p>
+        <ul class="cena-menu">
+          <li><span class="menu-course">Snack</span> Mac & cheese fritos, buffalo wings</li>
+          <li><span class="menu-course">Principal</span> Brisket BBQ smoked 12hs con coleslaw</li>
+          <li><span class="menu-course">Sides</span> Corn bread, baked beans</li>
+          <li><span class="menu-course">Postre</span> Cheesecake New York, apple pie</li>
+        </ul>
+        <div class="cena-bebida">Lemonade · Bourbon cocktail</div>
+        <span class="cena-status status-disponible">Disponible</span>
+        <span class="cena-num">04</span>
+      </div>
+
+      <!-- ÁRABE -->
+      <div class="cena-card reveal">
+        <span class="cena-flag">🌙</span>
+        <span class="cena-tag">Próxima cena</span>
+        <h3 class="cena-name">Árabe</h3>
+        <p class="cena-subtitle">Noches de Oriente</p>
+        <ul class="cena-menu">
+          <li><span class="menu-course">Mezze</span> Hummus, baba ganoush, falafel, pita</li>
+          <li><span class="menu-course">Principal</span> Cordero al horno con especias ras el hanout</li>
+          <li><span class="menu-course">Acomp.</span> Cous cous con frutos secos</li>
+          <li><span class="menu-course">Postre</span> Baklava, ma'amoul de dátil</li>
+        </ul>
+        <div class="cena-bebida">Té de menta · Agua de rosas</div>
+        <span class="cena-status status-proximo">Muy pronto</span>
+        <span class="cena-num">05</span>
+      </div>
+
+      <!-- INDIA -->
+      <div class="cena-card reveal">
+        <span class="cena-flag">🇮🇳</span>
+        <span class="cena-tag">Próxima cena</span>
+        <h3 class="cena-name">India</h3>
+        <p class="cena-subtitle">Especias y colores</p>
+        <ul class="cena-menu">
+          <li><span class="menu-course">Entrada</span> Samosas, chutney de mango y tamarindo</li>
+          <li><span class="menu-course">Principal</span> Butter chicken, dal makhani</li>
+          <li><span class="menu-course">Acomp.</span> Naan artesanal, arroz basmati</li>
+          <li><span class="menu-course">Postre</span> Gulab jamun, kulfi de pistacho</li>
+        </ul>
+        <div class="cena-bebida">Mango lassi · Chai masala</div>
+        <span class="cena-status status-proximo">Muy pronto</span>
+        <span class="cena-num">06</span>
+      </div>
+
+      <!-- ARGENTINA -->
+      <div class="cena-card reveal">
+        <span class="cena-flag">🇦🇷</span>
+        <span class="cena-tag">Próxima cena</span>
+        <h3 class="cena-name">Argentina</h3>
+        <p class="cena-subtitle">La mesa de siempre</p>
+        <ul class="cena-menu">
+          <li><span class="menu-course">Entrada</span> Empanadas de carne y jamón y queso</li>
+          <li><span class="menu-course">Principal</span> Asado completo: vacío, chorizo, morcilla</li>
+          <li><span class="menu-course">Acomp.</span> Chimichurri, ensalada criolla, pan</li>
+          <li><span class="menu-course">Postre</span> Panqueques con dulce de leche, vigilante</li>
+        </ul>
+        <div class="cena-bebida">Malbec de Mendoza · Fernet con Coca</div>
+        <span class="cena-status status-disponible">Disponible</span>
+        <span class="cena-num">07</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CÓMO FUNCIONA ── -->
+  <section class="como-funciona" id="como-funciona">
+    <span class="section-eyebrow">El proceso</span>
+    <h2 class="section-title">Cómo funciona</h2>
+    <div class="pasos">
+      <div class="paso reveal">
+        <div class="paso-n">01</div>
+        <h3 class="paso-title">Elegís tu destino</h3>
+        <p class="paso-desc">Seleccionás la cultura que más te atrae y completás el formulario de reserva.</p>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-n">02</div>
+        <h3 class="paso-title">Confirmamos la fecha</h3>
+        <p class="paso-desc">Te contactamos para coordinar fecha, grupo y cualquier restricción alimentaria.</p>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-n">03</div>
+        <h3 class="paso-title">Nosotros nos encargamos</h3>
+        <p class="paso-desc">Preparamos todo el menú, la bebida y la ambientación. Vos solo llegás.</p>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-n">04</div>
+        <h3 class="paso-title">Vivís la experiencia</h3>
+        <p class="paso-desc">Una noche de buena mesa, buena compañía y una cultura nueva en cada bocado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RESERVA ── -->
+  <section class="reserva" id="reserva">
+    <span class="section-eyebrow">Reservas</span>
+    <h2 class="section-title reveal">Reservá tu lugar</h2>
+    <p class="reserva-subtitle reveal">Completá el formulario y te contactamos para confirmar fecha y detalles.</p>
+
+    <form class="reveal" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Nombre</label>
+          <input class="form-control" type="text" placeholder="Tu nombre" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Apellido</label>
+          <input class="form-control" type="text" placeholder="Tu apellido" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Teléfono / WhatsApp</label>
+        <input class="form-control" type="tel" placeholder="+54 9 11 0000-0000" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-control" type="email" placeholder="tu@email.com" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Destino preferido</label>
+          <select class="form-control" required>
+            <option value="" disabled selected>Elegir...</option>
+            <option>🇪🇸 España</option>
+            <option>🇮🇹 Italia</option>
+            <option>🇯🇵 Japón</option>
+            <option>🇺🇸 Norte América</option>
+            <option>🌙 Árabe</option>
+            <option>🇮🇳 India</option>
+            <option>🇦🇷 Argentina</option>
+            <option>Sorprendeme</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Cantidad de personas</label>
+          <select class="form-control" required>
+            <option value="" disabled selected>Elegir...</option>
+            <option>6 personas</option>
+            <option>7 personas</option>
+            <option>8 personas</option>
+            <option>9 personas</option>
+            <option>10 personas</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Restricciones / notas (opcional)</label>
+        <input class="form-control" type="text" placeholder="Vegetariano, celiaco, alergias..." />
+      </div>
+      <button type="submit" class="form-submit">Enviar solicitud →</button>
+      <p class="form-note">Te responderemos dentro de las 24 hs para confirmar disponibilidad y coordinar los detalles.</p>
+    </form>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-logo">
+      <img src="images/logo-indigo-transparente.png" alt="Índigo" />
+    </div>
+    <p class="footer-text">© 2025 Índigo — Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+
+    // Form submit placeholder
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = '✓ Solicitud enviada';
+      btn.style.background = '#2a1520';
+      btn.disabled = true;
+    }
+  </script>
+</body>
+</html>
