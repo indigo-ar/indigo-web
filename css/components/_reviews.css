@@ -1,4 +1,4 @@
-.reviews { background: rgba(76, 39, 68, 0.5); }
+.reviews { background: rgba(76, 39, 68, 0.7); }
 
 .reviews .section-header .label { color: var(--color-blush); opacity: 0.7; }
 .reviews .section-header h2 { color: var(--color-blush); }
