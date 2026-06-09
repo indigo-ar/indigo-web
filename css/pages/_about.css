@@ -67,7 +67,7 @@
 }
 
 .intro-band {
-  background: rgba(76, 39, 68, 0.5);
+  background: rgba(76, 39, 68, 0.7);
   padding: var(--space-9) 0;
   border-bottom: 1px solid var(--color-ink-10);
 }
@@ -81,7 +81,7 @@
 
 .intro-band__lineart {
   width: 160px;
-  opacity: 0.35;
+  opacity: 0.7;
   display: block;
   filter: blur(0.6px);
   flex-shrink: 0;

@@ -4,6 +4,7 @@
 import { PRODUCTS, BOX } from '../config/products.js';
 import * as cart from './cart.js';
 import * as cartUI from './cartUI.js';
+import { showToast } from './products.js';
 
 /** @type {Record<number, number>} selection map: productId → qty */
 let selection = {};
@@ -96,17 +97,5 @@ function handleAddBox() {
   });
 
   closeModal();
-
-  // Toast en vez de abrir el drawer
-  const toast = document.getElementById('cartToast');
-  if (toast) {
-    toast.textContent = '✓ Caja agregada al carrito';
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateX(-50%) translateY(0)';
-    clearTimeout(toast._timeout);
-    toast._timeout = setTimeout(() => {
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateX(-50%) translateY(16px)';
-    }, 2000);
-  }
+  showToast('Caja × 8');
 }

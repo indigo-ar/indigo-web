@@ -97,6 +97,14 @@
 .qty-btn:hover { border-color: var(--color-ink); color: var(--color-ink); }
 .qty-value { font-size: 0.85rem; min-width: 14px; text-align: center; }
 
+.qty-btn--remove {
+  margin-left: var(--space-2);
+  border-color: transparent;
+  color: var(--color-ink-30);
+  font-size: 0.65rem;
+}
+.qty-btn--remove:hover { border-color: rgba(180,50,50,0.3); color: #b43232; }
+
 /* ── Footer ── */
 .cart-drawer__foot {
   padding: var(--space-5) var(--space-6);

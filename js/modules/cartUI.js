@@ -80,9 +80,10 @@ function renderItems() {
         <p class="cart-item__price">${formatPrice(item.price * item.qty)}</p>
       </div>
       <div class="cart-item__qty">
-        <button class="qty-btn" onclick="window.__cartChangeQty(${JSON.stringify(item.id)}, -1)">−</button>
+        <button class="qty-btn" onclick="window.__cartChangeQty('${item.id}', -1)">−</button>
         <span class="qty-value">${item.qty}</span>
-        <button class="qty-btn" onclick="window.__cartChangeQty(${JSON.stringify(item.id)}, 1)">+</button>
+        <button class="qty-btn" onclick="window.__cartChangeQty('${item.id}', 1)">+</button>
+        <button class="qty-btn qty-btn--remove" onclick="window.__cartRemoveItem('${item.id}')" title="Eliminar">✕</button>
       </div>
     </div>
   `).join('');
@@ -111,9 +112,13 @@ function renderFormSummary() {
   `).join('');
 }
 
-// Expose changeQty globally for inline onclick handlers
+// Expose handlers globally for inline onclick handlers
 window.__cartChangeQty = (id, delta) => {
-  // id puede ser número o string (ej: box-123)
   const numId = Number(id);
   cart.changeQty(isNaN(numId) || String(numId) !== String(id) ? id : numId, delta);
+};
+
+window.__cartRemoveItem = (id) => {
+  const numId = Number(id);
+  cart.removeItem(isNaN(numId) || String(numId) !== String(id) ? id : numId);
 };

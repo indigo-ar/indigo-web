@@ -49,26 +49,38 @@ function handleAddToCart(btn) {
   setTimeout(() => btn.classList.remove('product-card__add--added'), 500);
 }
 
-function showToast(name) {
+export function showToast(name) {
   let toast = document.getElementById('cartToast');
   if (!toast) {
     toast = document.createElement('div');
     toast.id = 'cartToast';
     toast.style.cssText = `
-      position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(16px);
-      background:#2a1520; color:white; padding:10px 20px;
-      font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase;
-      opacity:0; transition:all 0.3s; pointer-events:none; z-index:999;
-      white-space:nowrap;
+      position:fixed; top:80px; right:24px;
+      background:#faf4ef; color:#2a1520;
+      border:1px solid rgba(76,39,68,0.18);
+      box-shadow:0 8px 32px rgba(42,21,32,0.1);
+      padding:12px 18px 12px 14px;
+      display:flex; align-items:center; gap:10px;
+      font-family:'Inter',sans-serif;
+      font-size:0.72rem; letter-spacing:0.08em;
+      opacity:0; transform:translateY(-8px) translateX(8px);
+      transition:opacity 0.25s, transform 0.25s;
+      pointer-events:none; z-index:999;
+      white-space:nowrap; min-width:200px;
     `;
     document.body.appendChild(toast);
   }
-  toast.textContent = `✓ ${name} agregado`;
+  toast.innerHTML = `
+    <span style="width:20px;height:20px;background:#4c2744;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <span><strong style="font-weight:500">${name}</strong> agregado</span>
+  `;
   toast.style.opacity = '1';
-  toast.style.transform = 'translateX(-50%) translateY(0)';
+  toast.style.transform = 'translateY(0) translateX(0)';
   clearTimeout(toast._timeout);
   toast._timeout = setTimeout(() => {
     toast.style.opacity = '0';
-    toast.style.transform = 'translateX(-50%) translateY(16px)';
-  }, 2000);
+    toast.style.transform = 'translateY(-8px) translateX(8px)';
+  }, 2200);
 }
