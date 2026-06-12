@@ -11,7 +11,22 @@ import { errorHandler } from './src/middleware/errorHandler.js';
 const app = express();
 
 // ── Middleware ──
-app.use(cors({ origin: config.frontendUrl }));
+const allowedOrigins = [
+  config.frontendUrl,
+  'https://indigo-ar.github.io',
+  'http://localhost:3456',
+  'http://localhost:5500',
+].filter(Boolean);
+
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.some(o => origin.startsWith(o))) {
+      cb(null, true);
+    } else {
+      cb(new Error(`CORS: origen no permitido → ${origin}`));
+    }
+  }
+}));
 app.use(express.json());
 
 // ── Routes ──
