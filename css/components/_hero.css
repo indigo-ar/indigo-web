@@ -24,8 +24,8 @@
 }
 
 .hero__wordmark-img {
-  width: 220px;
-  max-width: 60vw;
+  width: 300px;
+  max-width: 70vw;
   display: block;
   margin: 0 auto var(--space-7);
 }
