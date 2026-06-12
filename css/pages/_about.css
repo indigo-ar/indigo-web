@@ -9,7 +9,7 @@
 
 .about__media {
   aspect-ratio: 4/5;
-  background: var(--color-indigo-pale);
+  background: transparent;
   position: relative;
   overflow: hidden;
 }
