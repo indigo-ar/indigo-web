@@ -244,16 +244,24 @@
       const err = document.getElementById('loginError');
       err.textContent = '';
 
-      const res = await fetch(`${API}/pedidos`, {
-        headers: { Authorization: `Bearer ${pwd}` }
-      }).catch(() => null);
+      let res = null;
+      try {
+        res = await fetch(`${API}/pedidos`, {
+          headers: { Authorization: `Bearer ${pwd}` }
+        });
+      } catch (e) {
+        err.textContent = 'No se pudo conectar al servidor. Intentá de nuevo.';
+        return;
+      }
 
-      if (res?.ok) {
+      if (res.ok) {
         token = pwd;
         sessionStorage.setItem('indigo_admin_token', token);
         mostrarApp();
-      } else {
+      } else if (res.status === 401) {
         err.textContent = 'Contraseña incorrecta';
+      } else {
+        err.textContent = `Error del servidor (${res.status}). Intentá de nuevo.`;
       }
     }
 
