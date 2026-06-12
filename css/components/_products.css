@@ -153,7 +153,7 @@
   color: var(--color-ink);
 }
 
-.product-card__qty-ctrl .product-card__add {
+.product-card__qty-ctrl .product-card__add:not(:only-child) {
   border-left: none;
 }
 
