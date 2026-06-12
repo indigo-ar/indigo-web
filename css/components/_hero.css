@@ -1,12 +1,12 @@
 .hero {
-  min-height: 100svh;
+  min-height: 70vh;
   background: var(--color-blush);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: calc(var(--nav-height) + var(--space-4)) var(--space-5) var(--space-4);
+  padding: calc(var(--nav-height) + var(--space-6)) var(--space-5) var(--space-7);
 }
 
 .hero__content {
@@ -17,10 +17,19 @@
 }
 
 .hero__logo {
-  width: 120px;
-  max-width: 40vw;
-  margin: 0 auto var(--space-4);
+  width: 90px;
+  max-width: 30vw;
+  margin: 0 auto var(--space-3);
   display: block;
+}
+
+.hero__wordmark {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 2.8rem;
+  color: var(--color-indigo);
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-7);
 }
 
 .hero__label {
