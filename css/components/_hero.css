@@ -23,13 +23,11 @@
   display: block;
 }
 
-.hero__wordmark {
-  font-family: var(--font-serif);
-  font-weight: 300;
-  font-size: 2.8rem;
-  color: var(--color-indigo);
-  letter-spacing: 0.08em;
-  margin-bottom: var(--space-7);
+.hero__wordmark-img {
+  width: 220px;
+  max-width: 60vw;
+  display: block;
+  margin: 0 auto var(--space-7);
 }
 
 .hero__label {
