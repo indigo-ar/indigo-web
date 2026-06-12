@@ -13,9 +13,9 @@ export function init() {
 }
 
 function renderGrid(grid) {
-  grid.innerHTML = PRODUCTS.map((product, index) => `
-    <div class="product-card">
-<div class="product-card__chips">
+  grid.innerHTML = PRODUCTS.map((product) => `
+    <div class="product-card" data-card-id="${product.id}">
+      <div class="product-card__chips">
         <span class="chip chip--${product.tapa}" title="${product.tapa === 'vainilla' ? 'Vainilla' : 'Chocolate'}"></span>
         <span class="chip chip--${product.cobertura}" title="${product.cobertura === 'blanco' ? 'Blanco' : product.cobertura === 'leche' ? 'Con leche' : 'Semiamargo'}"></span>
       </div>
@@ -23,30 +23,50 @@ function renderGrid(grid) {
       <p class="product-card__desc">${product.desc}</p>
       <div class="product-card__footer">
         <span class="product-card__price">${formatPrice(product.price)}</span>
-        <button
-          class="product-card__add"
-          data-product-id="${product.id}"
-          aria-label="Agregar ${product.name} al carrito"
-        >+</button>
+        <div class="product-card__qty-ctrl" data-product-id="${product.id}">
+          <button class="product-card__add" aria-label="Agregar ${product.name}">+</button>
+        </div>
       </div>
     </div>
   `).join('');
 
-  grid.querySelectorAll('[data-product-id]').forEach((btn) => {
-    btn.addEventListener('click', () => handleAddToCart(btn));
+  // Click delegation
+  grid.addEventListener('click', (e) => {
+    const ctrl = e.target.closest('[data-product-id]');
+    if (!ctrl) return;
+    const id = Number(ctrl.dataset.productId);
+    const product = PRODUCTS.find((p) => p.id === id);
+    if (!product) return;
+
+    if (e.target.classList.contains('product-card__add')) {
+      cart.addItem(product);
+      showToast(product.name);
+    } else if (e.target.classList.contains('product-card__minus')) {
+      cart.changeQty(id, -1);
+    }
   });
+
+  // Keep cards in sync with cart
+  cart.subscribe(() => syncCards(grid));
 }
 
-function handleAddToCart(btn) {
-  const id = Number(btn.dataset.productId);
-  const product = PRODUCTS.find((p) => p.id === id);
-  if (!product) return;
+function syncCards(grid) {
+  const items = cart.getItems();
+  grid.querySelectorAll('[data-product-id]').forEach((ctrl) => {
+    const id = Number(ctrl.dataset.productId);
+    const item = items.find((i) => i.id === id);
+    const qty = item ? item.qty : 0;
 
-  cart.addItem(product);
-  showToast(product.name);
-
-  btn.classList.add('product-card__add--added');
-  setTimeout(() => btn.classList.remove('product-card__add--added'), 500);
+    if (qty > 0) {
+      ctrl.innerHTML = `
+        <button class="product-card__minus" aria-label="Quitar uno">−</button>
+        <span class="product-card__qty-num">${qty}</span>
+        <button class="product-card__add" aria-label="Agregar uno">+</button>
+      `;
+    } else {
+      ctrl.innerHTML = `<button class="product-card__add" aria-label="Agregar">+</button>`;
+    }
+  });
 }
 
 export function showToast(name) {
