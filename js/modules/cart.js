@@ -1,13 +1,28 @@
 /**
  * Cart module — manages state and renders the cart drawer.
  * Uses a simple pub/sub pattern to notify subscribers on changes.
+ * State is persisted to localStorage so it survives page reloads.
  */
 
+const STORAGE_KEY = 'indigo_cart';
+
 /** @type {Array<{id: number|string, name: string, price: number, qty: number, icon: string, desc?: string}>} */
-let items = [];
+let items = load();
 
 /** @type {Array<() => void>} */
 const subscribers = [];
+
+function load() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
+  } catch {
+    return [];
+  }
+}
+
+function persist() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+}
 
 /** Subscribe to cart changes */
 export function subscribe(fn) {
@@ -15,6 +30,7 @@ export function subscribe(fn) {
 }
 
 function notify() {
+  persist();
   subscribers.forEach((fn) => fn());
 }
 

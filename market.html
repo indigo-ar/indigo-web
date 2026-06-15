@@ -1,4 +1,532 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"/><title>Índigo Market</title>
-<style>body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#254c42;font-family:'Georgia',serif;flex-direction:column;gap:16px;}
-h1{font-size:3rem;color:#fff;font-weight:300;}p{color:rgba(255,255,255,0.4);font-size:0.9rem;letter-spacing:0.1em;}a{color:rgba(255,255,255,0.6);font-size:0.8rem;letter-spacing:0.1em;}</style></head>
-<body><h1>Índigo Market</h1><p>PRÓXIMAMENTE</p><a href="index.html">← Volver</a></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Índigo Market — Productos del mundo</title>
+  <link rel="icon" type="image/png" href="images/logo-indigo-fondo-beige.png" />
+  <link rel="stylesheet" href="css/main.css?v=10" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── MARKET-SPECIFIC STYLES ── */
+
+    body { background: #f3e8de; }
+
+    .market-hero {
+      background: #254c42;
+      padding: 120px 40px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .market-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 50% 100%, rgba(255,255,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .market-hero .label { color: rgba(243,232,222,0.5); display: block; margin-bottom: var(--space-4); }
+    .market-hero h1 {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: clamp(3rem, 6vw, 5rem);
+      color: #f3e8de;
+      line-height: 1;
+      margin-bottom: var(--space-4);
+    }
+    .market-hero h1 em { color: rgba(196,121,85,0.85); }
+    .market-hero p {
+      font-size: 0.9rem;
+      color: rgba(243,232,222,0.45);
+      max-width: 420px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      background: #f3e8de;
+      border-bottom: 1px solid rgba(42,21,32,0.08);
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 50;
+      padding: 0 40px;
+    }
+    .filter-bar__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-5);
+      flex-wrap: wrap;
+      padding: var(--space-3) 0;
+    }
+    .filter-cats {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border: 1px solid transparent;
+      background: none;
+      color: rgba(42,21,32,0.5);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { color: var(--color-ink); border-color: var(--color-ink-10); }
+    .filter-btn.active {
+      background: var(--color-indigo);
+      color: #f3e8de;
+      border-color: var(--color-indigo);
+    }
+    .filter-regions {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .filter-region {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 1px solid var(--color-ink-10);
+      background: none;
+      color: rgba(42,21,32,0.45);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-sans);
+    }
+    .filter-region:hover { color: var(--color-ink); border-color: rgba(42,21,32,0.2); }
+    .filter-region.active { border-color: var(--color-copper); color: var(--color-copper); }
+
+    /* ── PRODUCTS SECTION ── */
+    .market-section { padding: 60px 40px; max-width: 1200px; margin: 0 auto; }
+
+    .market-count {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-ink-60);
+      margin-bottom: var(--space-6);
+    }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 2px;
+    }
+
+    /* ── MARKET CARD ── */
+    .market-card {
+      background: #fff;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.35s;
+      position: relative;
+      overflow: hidden;
+    }
+    .market-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(42,21,32,0.09);
+      z-index: 2;
+    }
+    .market-card[data-hidden="true"] { display: none; }
+
+    .market-card__origin {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: var(--space-4);
+    }
+    .market-card__flag { font-size: 1.2rem; line-height: 1; }
+    .market-card__region-tag {
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-copper);
+    }
+
+    .market-card__cat-badge {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid var(--color-ink-10);
+      color: var(--color-ink-60);
+    }
+
+    .market-card__name {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: 1.4rem;
+      color: var(--color-ink);
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+    .market-card__desc {
+      font-size: 0.78rem;
+      color: var(--color-ink-60);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: var(--space-5);
+    }
+    .market-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+    .market-card__price {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--color-indigo);
+    }
+    .market-card__add {
+      width: 36px; height: 36px;
+      background: var(--color-indigo);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .market-card__add:hover { background: #3a1c34; }
+    .market-card__qty-ctrl {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .market-card__qty-btn {
+      width: 28px; height: 28px;
+      background: none;
+      border: 1px solid var(--color-ink-10);
+      color: var(--color-ink);
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s;
+    }
+    .market-card__qty-btn:hover { border-color: var(--color-indigo); }
+    .market-card__qty-num {
+      font-size: 0.85rem;
+      min-width: 20px;
+      text-align: center;
+      color: var(--color-ink);
+    }
+
+    /* ── EMPTY STATE ── */
+    .market-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 0;
+      display: none;
+    }
+    .market-empty p {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--color-ink-60);
+    }
+
+    /* ── WA FLOAT ── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 52px; height: 52px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+      z-index: 200;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .wa-float:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,0.45); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .market-hero { padding: 100px 24px 60px; }
+      .filter-bar { padding: 0 20px; }
+      .market-section { padding: 40px 20px; }
+      .filter-bar__inner { gap: var(--space-3); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar" class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo navbar__logo--back">
+        <svg class="navbar__back-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        <span class="navbar__back-label">Volver</span>
+      </a>
+      <ul class="navbar__links">
+        <li><a href="#productos">Productos</a></li>
+      </ul>
+      <button class="navbar__cart" id="cartBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span>Carrito</span>
+        <span class="navbar__cart-badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <div class="market-hero">
+    <span class="label">Curaduría de productos</span>
+    <h1>Índigo<br><em>Market</em></h1>
+    <p>Ingredientes, especias y utensilios que no encontrás en el súper. Traídos de sus culturas de origen.</p>
+  </div>
+
+  <!-- ── FILTER BAR ── -->
+  <div class="filter-bar" id="productos">
+    <div class="filter-bar__inner">
+      <div class="filter-cats">
+        <button class="filter-btn active" data-cat="todos">Todos</button>
+        <button class="filter-btn" data-cat="especias">Especias</button>
+        <button class="filter-btn" data-cat="despensa">Despensa</button>
+        <button class="filter-btn" data-cat="bebidas">Bebidas</button>
+        <button class="filter-btn" data-cat="utensilios">Utensilios</button>
+      </div>
+      <div class="filter-regions">
+        <button class="filter-region active" data-region="todos">Todas las regiones</button>
+        <button class="filter-region" data-region="asia">Asia</button>
+        <button class="filter-region" data-region="europa">Europa</button>
+        <button class="filter-region" data-region="latam">Latinoamérica</button>
+        <button class="filter-region" data-region="medio-oriente">Medio Oriente</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PRODUCT GRID ── -->
+  <div class="market-section">
+    <p class="market-count" id="marketCount">26 productos</p>
+    <div class="market-grid" id="marketGrid"></div>
+  </div>
+
+  <!-- ── CARRITO ── -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer__head">
+      <h3>Tu selección</h3>
+      <button class="cart-drawer__close" id="cartClose">✕</button>
+    </div>
+    <div class="cart-drawer__items" id="drawerItems">
+      <p class="cart-drawer__empty">Aún no agregaste productos</p>
+    </div>
+    <div class="cart-drawer__foot" id="drawerFoot">
+      <div class="cart-drawer__total">
+        <span>Total estimado</span>
+        <span class="cart-drawer__total-amount" id="drawerTotal">$0</span>
+      </div>
+      <a
+        href="#"
+        class="btn btn--filled btn-full"
+        id="drawerCheckout"
+        style="display:block;text-align:center;text-decoration:none;padding:14px;"
+      >Consultar por WhatsApp</a>
+    </div>
+  </aside>
+
+  <!-- ── WA FLOTANTE ── -->
+  <a href="https://wa.me/5491134687322?text=Hola%2C%20quiero%20consultar%20sobre%20productos%20Índigo%20Market" target="_blank" class="wa-float" aria-label="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script type="module">
+    import { init as initNavbar } from './js/modules/navbar.js';
+    import * as cart from './js/modules/cart.js';
+    import * as cartUI from './js/modules/cartUI.js';
+    import { formatPrice } from './js/modules/utils.js';
+
+    const PRODUCTS = [
+      // ESPECIAS
+      { id: 'm1', name: 'Ras el Hanout', desc: 'Mezcla marroquí de más de 20 especias. Ideal para cordero, pollo y cous cous.', price: 3200, cat: 'especias', region: 'medio-oriente', flag: '🇲🇦', origin: 'Marruecos' },
+      { id: 'm2', name: 'Shichimi Togarashi', desc: 'Mezcla japonesa de siete especias con ají, sésamo, yuzu y alga nori. Para ramen y carnes.', price: 3500, cat: 'especias', region: 'asia', flag: '🇯🇵', origin: 'Japón' },
+      { id: 'm3', name: 'Za\'atar', desc: 'Blend libanés de tomillo silvestre, sésamo y sumac. Para pan, humus y ensaladas.', price: 2800, cat: 'especias', region: 'medio-oriente', flag: '🇱🇧', origin: 'Líbano' },
+      { id: 'm4', name: 'Garam Masala', desc: 'La especia madre de la cocina india. Mezcla de cardamomo, canela, clavo y comino tostados.', price: 2600, cat: 'especias', region: 'asia', flag: '🇮🇳', origin: 'India' },
+      { id: 'm5', name: 'Pimentón de La Vera', desc: 'Pimentón ahumado DOP del Valle de La Vera, España. Imprescindible para paellas y chorizos.', price: 3100, cat: 'especias', region: 'europa', flag: '🇪🇸', origin: 'España' },
+      { id: 'm6', name: 'Sumac molido', desc: 'Baya siria de sabor cítrico y afrutado. Para carnes a la parrilla, ensaladas y falafel.', price: 2900, cat: 'especias', region: 'medio-oriente', flag: '🇸🇾', origin: 'Siria' },
+
+      // DESPENSA
+      { id: 'm7', name: 'Pasta de miso blanco', desc: 'Miso shiro fermentado por 3 meses. Base para sopas, marinadas y aderezos umami.', price: 4800, cat: 'despensa', region: 'asia', flag: '🇯🇵', origin: 'Japón' },
+      { id: 'm8', name: 'Pasta de tamarindo', desc: 'Concentrado puro de tamarindo sin azúcar. Para salsas agridulces, chutneys y pad thai.', price: 3200, cat: 'despensa', region: 'asia', flag: '🇮🇳', origin: 'India' },
+      { id: 'm9', name: 'Ají amarillo en pasta', desc: 'El sabor del Perú. Pasta de ají amarillo para causas, ceviches y ají de gallina.', price: 3500, cat: 'despensa', region: 'latam', flag: '🇵🇪', origin: 'Perú' },
+      { id: 'm10', name: 'Tahini artesanal', desc: 'Pasta de sésamo tostado de prensado en frío. Para hummus, baba ganoush y aderezos.', price: 4200, cat: 'despensa', region: 'medio-oriente', flag: '🇱🇧', origin: 'Líbano' },
+      { id: 'm11', name: 'Pasta de curry rojo', desc: 'Curry rojo tailandés con galangal, lemongrass y chiles. Para curries y sopas.', price: 3000, cat: 'despensa', region: 'asia', flag: '🇹🇭', origin: 'Tailandia' },
+      { id: 'm12', name: 'Harissa picante', desc: 'Salsa de chiles rojos tunecina con comino y ajo. La condimenta todo en el Magreb.', price: 3400, cat: 'despensa', region: 'medio-oriente', flag: '🇹🇳', origin: 'Túnez' },
+      { id: 'm13', name: 'Leche de coco premium', desc: 'Leche de coco prensada en frío, sin aditivos. Para curries, postres y cócteles tropicales.', price: 2800, cat: 'despensa', region: 'asia', flag: '🇹🇭', origin: 'Tailandia' },
+      { id: 'm14', name: 'Mirin auténtico', desc: 'Vino dulce de arroz japonés con 10% de alcohol natural. Imprescindible para teriyaki y ramen.', price: 5200, cat: 'despensa', region: 'asia', flag: '🇯🇵', origin: 'Japón' },
+
+      // BEBIDAS
+      { id: 'm15', name: 'Sake Junmai', desc: 'Sake puro de arroz sin alcohol agregado. Notas de melocotón y anís. Para tomar frío o tibio.', price: 9500, cat: 'bebidas', region: 'asia', flag: '🇯🇵', origin: 'Japón' },
+      { id: 'm16', name: 'Matcha ceremonial', desc: 'Té verde molido en piedra de Uji, Kyoto. Grado ceremonial para preparar con chasen.', price: 7200, cat: 'bebidas', region: 'asia', flag: '🇯🇵', origin: 'Japón' },
+      { id: 'm17', name: 'Té Pu-erh', desc: 'Té negro fermentado de Yunnan con 5 años de añejamiento. Terroso, profundo y digestivo.', price: 5800, cat: 'bebidas', region: 'asia', flag: '🇨🇳', origin: 'China' },
+      { id: 'm18', name: 'Agua de rosas', desc: 'Destilado de pétalos de rosa de Damasco. Para repostería, limonadas y cócteles florales.', price: 3500, cat: 'bebidas', region: 'medio-oriente', flag: '🇮🇷', origin: 'Irán' },
+      { id: 'm19', name: 'Horchata de chufa', desc: 'Bebida valenciana de chufa, sin lactosa. Refrescante y naturalmente dulce.', price: 4200, cat: 'bebidas', region: 'europa', flag: '🇪🇸', origin: 'España' },
+      { id: 'm20', name: 'Flor de Jamaica seca', desc: 'Hibiscus mexicano deshidratado. Para aguas frescas, tés fríos y cócteles.', price: 2400, cat: 'bebidas', region: 'latam', flag: '🇲🇽', origin: 'México' },
+
+      // UTENSILIOS
+      { id: 'm21', name: 'Tajine de cerámica', desc: 'Olla cónica marroquí de arcilla vidriada. Para cocinar guisos y cordero al horno.', price: 22000, cat: 'utensilios', region: 'medio-oriente', flag: '🇲🇦', origin: 'Marruecos' },
+      { id: 'm22', name: 'Mortero de granito', desc: 'Mortero indio pesado de granito negro. Para masas de curry, chutneys y especias.', price: 13500, cat: 'utensilios', region: 'asia', flag: '🇮🇳', origin: 'India' },
+      { id: 'm23', name: 'Wok de acero al carbono', desc: 'Wok profesional de acero al carbono con mango de madera. Se sazona como un cast iron.', price: 11000, cat: 'utensilios', region: 'asia', flag: '🇨🇳', origin: 'China' },
+      { id: 'm24', name: 'Tetera de hierro fundido', desc: 'Tetsubin japonés de hierro fundido esmaltado. Mantiene el calor por más de 30 minutos.', price: 24000, cat: 'utensilios', region: 'asia', flag: '🇯🇵', origin: 'Japón' },
+      { id: 'm25', name: 'Prensa de tortillas', desc: 'Tortillera de hierro fundido, 20cm. Para tortillas de maíz perfectas y uniformes.', price: 8500, cat: 'utensilios', region: 'latam', flag: '🇲🇽', origin: 'México' },
+      { id: 'm26', name: 'Set de palillos x5', desc: 'Palillos de bambú negro lacado, reutilizables. Set de 5 pares en estuche de madera.', price: 2200, cat: 'utensilios', region: 'asia', flag: '🇯🇵', origin: 'Japón' },
+    ];
+
+    const WHATSAPP_NUMBER = '5491134687322';
+
+    // ── Render grid ──
+    const grid = document.getElementById('marketGrid');
+
+    function renderGrid() {
+      grid.innerHTML = PRODUCTS.map(p => `
+        <div class="market-card reveal" data-id="${p.id}" data-cat="${p.cat}" data-region="${p.region}">
+          <span class="market-card__cat-badge">${p.cat}</span>
+          <div class="market-card__origin">
+            <span class="market-card__flag">${p.flag}</span>
+            <span class="market-card__region-tag">${p.origin}</span>
+          </div>
+          <p class="market-card__name">${p.name}</p>
+          <p class="market-card__desc">${p.desc}</p>
+          <div class="market-card__footer">
+            <span class="market-card__price">${formatPrice(p.price)}</span>
+            <div class="market-card__qty-ctrl" data-ctrl="${p.id}">
+              <button class="market-card__add" data-add="${p.id}" aria-label="Agregar">+</button>
+            </div>
+          </div>
+        </div>
+      `).join('') + `<div class="market-empty" id="marketEmpty"><p>Sin resultados para ese filtro.</p></div>`;
+
+      grid.addEventListener('click', e => {
+        const addBtn  = e.target.closest('[data-add]');
+        const minusBtn = e.target.closest('[data-minus]');
+        if (addBtn) {
+          const p = PRODUCTS.find(x => x.id === addBtn.dataset.add);
+          if (p) { cart.addItem({ ...p, icon: p.flag }); showToast(p.name); }
+        }
+        if (minusBtn) {
+          cart.changeQty(minusBtn.dataset.minus, -1);
+        }
+      });
+
+      cart.subscribe(() => syncCards());
+      syncCards();
+    }
+
+    function syncCards() {
+      const items = cart.getItems();
+      grid.querySelectorAll('[data-ctrl]').forEach(ctrl => {
+        const id  = ctrl.dataset.ctrl;
+        const item = items.find(i => i.id === id);
+        const qty  = item ? item.qty : 0;
+        if (qty > 0) {
+          ctrl.innerHTML = `
+            <button class="market-card__qty-btn" data-minus="${id}">−</button>
+            <span class="market-card__qty-num">${qty}</span>
+            <button class="market-card__add" data-add="${id}">+</button>
+          `;
+        } else {
+          ctrl.innerHTML = `<button class="market-card__add" data-add="${id}" aria-label="Agregar">+</button>`;
+        }
+      });
+    }
+
+    function showToast(name) {
+      let toast = document.getElementById('cartToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'cartToast';
+        toast.style.cssText = `position:fixed;top:80px;right:24px;background:#faf4ef;color:#2a1520;border:1px solid rgba(76,39,68,0.18);box-shadow:0 8px 32px rgba(42,21,32,0.1);padding:12px 18px 12px 14px;display:flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-size:0.72rem;letter-spacing:0.08em;opacity:0;transform:translateY(-8px) translateX(8px);transition:opacity 0.25s,transform 0.25s;pointer-events:none;z-index:999;white-space:nowrap;min-width:200px;`;
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<span style="width:20px;height:20px;background:#254c42;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><polyline points="1,3.5 3.5,6 8,1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><strong style="font-weight:500">${name}</strong> agregado</span>`;
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateY(0) translateX(0)';
+      clearTimeout(toast._timeout);
+      toast._timeout = setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateY(-8px) translateX(8px)'; }, 2200);
+    }
+
+    // ── Filters ──
+    let activeCat = 'todos';
+    let activeRegion = 'todos';
+
+    function applyFilters() {
+      let visible = 0;
+      grid.querySelectorAll('.market-card').forEach(card => {
+        const matchCat    = activeCat === 'todos' || card.dataset.cat === activeCat;
+        const matchRegion = activeRegion === 'todos' || card.dataset.region === activeRegion;
+        const show = matchCat && matchRegion;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      const countEl = document.getElementById('marketCount');
+      if (countEl) countEl.textContent = `${visible} producto${visible !== 1 ? 's' : ''}`;
+      const emptyEl = document.getElementById('marketEmpty');
+      if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCat = btn.dataset.cat;
+        applyFilters();
+      });
+    });
+
+    document.querySelectorAll('.filter-region').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-region').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeRegion = btn.dataset.region;
+        applyFilters();
+      });
+    });
+
+    // ── Cart checkout ──
+    document.getElementById('drawerCheckout')?.addEventListener('click', e => {
+      e.preventDefault();
+      if (cart.isEmpty()) return;
+      const lines = cart.getItems().map(i => `${i.name} ×${i.qty} ($${(i.price * i.qty).toLocaleString('es-AR')})`).join(', ');
+      const total = formatPrice(cart.getTotal());
+      const text  = `Hola, quiero consultar sobre estos productos de Índigo Market: ${lines}. Total: ${total}.`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+    });
+
+    // ── Scroll reveal ──
+    function initReveal() {
+      const els = document.querySelectorAll('.reveal');
+      const io  = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (!entry.isIntersecting) return;
+          setTimeout(() => entry.target.classList.add('reveal--visible'), i * 40);
+          io.unobserve(entry.target);
+        });
+      }, { threshold: 0.05 });
+      els.forEach(el => io.observe(el));
+    }
+
+    // ── Boot ──
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavbar();
+      cartUI.init();
+      renderGrid();
+      initReveal();
+      document.getElementById('cartBtn')?.addEventListener('click', cartUI.open);
+    });
+  </script>
+</body>
+</html>

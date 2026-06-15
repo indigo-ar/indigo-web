@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Índigo — Alfajores de Autor</title>
+  <link rel="icon" type="image/png" href="images/logo-indigo-fondo-beige.png" />
   <link rel="stylesheet" href="css/main.css?v=10" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -260,20 +261,58 @@
         <p>Trabajamos con ingredientes seleccionados y ponemos el mismo cuidado en cada unidad. Sin atajos, sin conservantes, sin producción en serie.</p>
         <div class="about__stats">
           <div>
-            <div class="stat__number">6</div>
+            <div class="stat__number count-up" data-target="6">0</div>
             <div class="stat__label">Variedades</div>
           </div>
           <div>
-            <div class="stat__number">5</div>
+            <div class="stat__number count-up" data-target="5">0</div>
             <div class="stat__label">Creadores</div>
           </div>
           <div>
-            <div class="stat__number">0</div>
+            <div class="stat__number count-up" data-target="0">0</div>
             <div class="stat__label">Conservantes</div>
           </div>
         </div>
       </div>
       </div><!-- /.about__inner -->
+    </div>
+  </section>
+
+  <!-- ── PEDIDOS ── -->
+  <section id="pedidos" class="order-section section-pad" style="display:none">
+    <div class="container">
+      <div class="order-section__inner">
+        <div class="order-section__header reveal">
+          <span class="label">Confirmá tu encargo</span>
+          <h2>Tu pedido</h2>
+        </div>
+        <div class="order-section__body">
+          <div class="order-section__summary reveal" id="cartInForm">
+            <p class="order-section__summary-label">Resumen</p>
+            <div id="cartInFormItems"></div>
+            <div class="order-section__summary-total">
+              <span>Total</span>
+              <span id="cartInFormTotal"></span>
+            </div>
+          </div>
+          <form class="order-section__form reveal" id="orderForm">
+            <div class="form-field">
+              <label class="form-label" for="nombre">Nombre</label>
+              <input class="form-input" id="nombre" name="nombre" type="text" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="tel">WhatsApp</label>
+              <input class="form-input" id="tel" name="tel" type="tel" placeholder="+54 9 11 0000-0000" required />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="mensaje">Notas (opcional)</label>
+              <textarea class="form-input form-input--textarea" id="mensaje" name="mensaje" placeholder="Dirección, horario preferido, etc." rows="3"></textarea>
+            </div>
+            <button class="btn btn--filled btn-full" type="submit">Confirmar pedido por WhatsApp</button>
+            <p class="form-msg" id="formMsg"></p>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 

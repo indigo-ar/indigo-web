@@ -31,6 +31,8 @@ export function init() {
     close();
     document.querySelector('#pedidos')?.scrollIntoView({ behavior: 'smooth' });
   });
+
+  render(); // sync UI with persisted cart on load
 }
 
 export function open() {
@@ -93,8 +95,12 @@ function renderItems() {
 }
 
 function renderFormSummary() {
-  const block = el(selectors.formBlock);
-  const list  = el(selectors.formItems);
+  const block    = el(selectors.formBlock);
+  const list     = el(selectors.formItems);
+  const totalEl  = document.getElementById('cartInFormTotal');
+  const section  = document.getElementById('pedidos');
+
+  if (section) section.style.display = cart.isEmpty() ? 'none' : 'block';
 
   if (!block || !list) return;
 
@@ -110,6 +116,8 @@ function renderFormSummary() {
       <span>${formatPrice(item.price * item.qty)}</span>
     </div>
   `).join('');
+
+  if (totalEl) totalEl.textContent = formatPrice(cart.getTotal());
 }
 
 // Expose handlers globally for inline onclick handlers
