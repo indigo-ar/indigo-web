@@ -7,8 +7,12 @@ export function init() {
   const navbar = document.getElementById('navbar');
   if (!navbar) return;
 
+  const isLight = navbar.classList.contains('navbar--light');
+
   const update = () => {
-    navbar.classList.toggle('navbar--scrolled', window.scrollY > SCROLL_THRESHOLD);
+    const scrolled = window.scrollY > SCROLL_THRESHOLD;
+    navbar.classList.toggle('navbar--scrolled', scrolled);
+    if (isLight) navbar.classList.toggle('navbar--light', !scrolled);
   };
 
   window.addEventListener('scroll', update, { passive: true });

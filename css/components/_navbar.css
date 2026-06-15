@@ -6,6 +6,19 @@
   border-bottom: 1px solid transparent;
 }
 
+.navbar--light {
+  --nav-text: rgba(243,232,222,0.85);
+  --nav-text-muted: rgba(243,232,222,0.55);
+}
+.navbar--light .navbar__back-label,
+.navbar--light .navbar__links a,
+.navbar--light .navbar__cart { color: var(--nav-text); }
+.navbar--light .navbar__back-arrow { color: var(--nav-text-muted); }
+.navbar--light .navbar__logo:hover .navbar__back-label,
+.navbar--light .navbar__links a:hover,
+.navbar--light .navbar__cart:hover { color: #fff; }
+.navbar--light .navbar__logo:hover .navbar__back-arrow { color: #fff; }
+
 .navbar--scrolled {
   background: rgba(243, 232, 222, 0.98);
   backdrop-filter: blur(20px);
