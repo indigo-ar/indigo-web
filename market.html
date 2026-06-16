@@ -63,29 +63,6 @@
       flex-wrap: wrap;
       padding: var(--space-3) 0;
     }
-    .filter-cats {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-    .filter-btn {
-      font-family: var(--font-sans);
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 7px 16px;
-      border: 1px solid transparent;
-      background: none;
-      color: rgba(42,21,32,0.5);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .filter-btn:hover { color: var(--color-ink); border-color: var(--color-ink-10); }
-    .filter-btn.active {
-      background: #254c42;
-      color: #f3e8de;
-      border-color: #254c42;
-    }
     .filter-select-wrap {
       position: relative;
       display: flex;
@@ -321,36 +298,30 @@
   <!-- ── FILTER BAR ── -->
   <div class="filter-bar" id="productos">
     <div class="filter-bar__inner">
-      <div class="filter-cats">
-        <button class="filter-btn active" data-cat="todos">Todos</button>
-        <button class="filter-btn" data-cat="especias">Especias</button>
-        <button class="filter-btn" data-cat="despensa">Despensa</button>
-        <button class="filter-btn" data-cat="bebidas">Bebidas</button>
-        <button class="filter-btn" data-cat="utensilios">Utensilios</button>
+      <div class="filter-select-wrap">
+        <select class="filter-select" id="catSelect">
+          <option value="todos">Todos los productos</option>
+          <option value="especias">Especias</option>
+          <option value="despensa">Despensa</option>
+          <option value="bebidas">Bebidas</option>
+          <option value="utensilios">Utensilios</option>
+        </select>
       </div>
       <div class="filter-select-wrap">
         <select class="filter-select" id="regionSelect">
           <option value="todos">Todos los países</option>
-          <optgroup label="Asia">
-            <option value="japon">🇯🇵 Japón</option>
-            <option value="india">🇮🇳 India</option>
-            <option value="china">🇨🇳 China</option>
-            <option value="tailandia">🇹🇭 Tailandia</option>
-          </optgroup>
-          <optgroup label="Europa">
-            <option value="espana">🇪🇸 España</option>
-          </optgroup>
-          <optgroup label="Latinoamérica">
-            <option value="mexico">🇲🇽 México</option>
-            <option value="peru">🇵🇪 Perú</option>
-          </optgroup>
-          <optgroup label="Medio Oriente">
-            <option value="marruecos">🇲🇦 Marruecos</option>
-            <option value="libano">🇱🇧 Líbano</option>
-            <option value="siria">🇸🇾 Siria</option>
-            <option value="tunez">🇹🇳 Túnez</option>
-            <option value="iran">🇮🇷 Irán</option>
-          </optgroup>
+          <option value="japon">🇯🇵 Japón</option>
+          <option value="india">🇮🇳 India</option>
+          <option value="china">🇨🇳 China</option>
+          <option value="tailandia">🇹🇭 Tailandia</option>
+          <option value="espana">🇪🇸 España</option>
+          <option value="mexico">🇲🇽 México</option>
+          <option value="peru">🇵🇪 Perú</option>
+          <option value="marruecos">🇲🇦 Marruecos</option>
+          <option value="libano">🇱🇧 Líbano</option>
+          <option value="siria">🇸🇾 Siria</option>
+          <option value="tunez">🇹🇳 Túnez</option>
+          <option value="iran">🇮🇷 Irán</option>
         </select>
       </div>
     </div>
@@ -525,13 +496,11 @@
       if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
     }
 
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeCat = btn.dataset.cat;
-        applyFilters();
-      });
+    const catSelect = document.getElementById('catSelect');
+    catSelect?.addEventListener('change', () => {
+      activeCat = catSelect.value;
+      catSelect.classList.toggle('active', activeCat !== 'todos');
+      applyFilters();
     });
 
     const regionSelect = document.getElementById('regionSelect');
