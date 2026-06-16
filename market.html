@@ -82,29 +82,44 @@
     }
     .filter-btn:hover { color: var(--color-ink); border-color: var(--color-ink-10); }
     .filter-btn.active {
-      background: var(--color-indigo);
+      background: #254c42;
       color: #f3e8de;
-      border-color: var(--color-indigo);
+      border-color: #254c42;
     }
-    .filter-regions {
+    .filter-select-wrap {
+      position: relative;
       display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
+      align-items: center;
     }
-    .filter-region {
+    .filter-select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid rgba(42,21,32,0.45);
+      pointer-events: none;
+    }
+    .filter-select {
+      font-family: var(--font-sans);
       font-size: 0.65rem;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 6px 14px;
+      padding: 7px 32px 7px 14px;
       border: 1px solid var(--color-ink-10);
       background: none;
-      color: rgba(42,21,32,0.45);
+      color: rgba(42,21,32,0.55);
       cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
       transition: all 0.2s;
-      font-family: var(--font-sans);
+      outline: none;
     }
-    .filter-region:hover { color: var(--color-ink); border-color: rgba(42,21,32,0.2); }
-    .filter-region.active { border-color: var(--color-copper); color: var(--color-copper); }
+    .filter-select:hover { color: var(--color-ink); border-color: rgba(42,21,32,0.2); }
+    .filter-select.active { border-color: #254c42; color: #254c42; }
 
     /* ── PRODUCTS SECTION ── */
     .market-section { padding: 60px 40px; max-width: 1200px; margin: 0 auto; }
@@ -313,12 +328,30 @@
         <button class="filter-btn" data-cat="bebidas">Bebidas</button>
         <button class="filter-btn" data-cat="utensilios">Utensilios</button>
       </div>
-      <div class="filter-regions">
-        <button class="filter-region active" data-region="todos">Todas las regiones</button>
-        <button class="filter-region" data-region="asia">Asia</button>
-        <button class="filter-region" data-region="europa">Europa</button>
-        <button class="filter-region" data-region="latam">Latinoamérica</button>
-        <button class="filter-region" data-region="medio-oriente">Medio Oriente</button>
+      <div class="filter-select-wrap">
+        <select class="filter-select" id="regionSelect">
+          <option value="todos">Todos los países</option>
+          <optgroup label="Asia">
+            <option value="japon">🇯🇵 Japón</option>
+            <option value="india">🇮🇳 India</option>
+            <option value="china">🇨🇳 China</option>
+            <option value="tailandia">🇹🇭 Tailandia</option>
+          </optgroup>
+          <optgroup label="Europa">
+            <option value="espana">🇪🇸 España</option>
+          </optgroup>
+          <optgroup label="Latinoamérica">
+            <option value="mexico">🇲🇽 México</option>
+            <option value="peru">🇵🇪 Perú</option>
+          </optgroup>
+          <optgroup label="Medio Oriente">
+            <option value="marruecos">🇲🇦 Marruecos</option>
+            <option value="libano">🇱🇧 Líbano</option>
+            <option value="siria">🇸🇾 Siria</option>
+            <option value="tunez">🇹🇳 Túnez</option>
+            <option value="iran">🇮🇷 Irán</option>
+          </optgroup>
+        </select>
       </div>
     </div>
   </div>
@@ -366,35 +399,35 @@
 
     const PRODUCTS = [
       // ESPECIAS
-      { id: 'm1',  name: 'Ras el Hanout',       desc: 'Mezcla marroquí de más de 20 especias. Ideal para cordero, pollo y cous cous.',             price: 3200,  cat: 'especias',   region: 'medio-oriente', flag: '🇲🇦', origin: 'Marruecos', img: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm2',  name: 'Shichimi Togarashi',  desc: 'Mezcla japonesa de siete especias con ají, sésamo, yuzu y alga nori. Para ramen y carnes.', price: 3500,  cat: 'especias',   region: 'asia',          flag: '🇯🇵', origin: 'Japón',     img: 'https://images.unsplash.com/photo-1518843875459-f738682238a6?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm3',  name: "Za'atar",             desc: 'Blend libanés de tomillo silvestre, sésamo y sumac. Para pan, humus y ensaladas.',           price: 2800,  cat: 'especias',   region: 'medio-oriente', flag: '🇱🇧', origin: 'Líbano',    img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm4',  name: 'Garam Masala',        desc: 'La especia madre de la cocina india. Mezcla de cardamomo, canela, clavo y comino tostados.',  price: 2600,  cat: 'especias',   region: 'asia',          flag: '🇮🇳', origin: 'India',     img: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm5',  name: 'Pimentón de La Vera', desc: 'Pimentón ahumado DOP del Valle de La Vera, España. Imprescindible para paellas y chorizos.',  price: 3100,  cat: 'especias',   region: 'europa',        flag: '🇪🇸', origin: 'España',    img: 'https://images.unsplash.com/photo-1601001519116-30af48e7c0f2?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm6',  name: 'Sumac molido',        desc: 'Baya siria de sabor cítrico y afrutado. Para carnes a la parrilla, ensaladas y falafel.',     price: 2900,  cat: 'especias',   region: 'medio-oriente', flag: '🇸🇾', origin: 'Siria',     img: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm1',  name: 'Ras el Hanout',       desc: 'Mezcla marroquí de más de 20 especias. Ideal para cordero, pollo y cous cous.',             price: 3200,  cat: 'especias',   region: 'medio-oriente', flag: '🇲🇦', origin: 'Marruecos', originKey: 'marruecos', img: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm2',  name: 'Shichimi Togarashi',  desc: 'Mezcla japonesa de siete especias con ají, sésamo, yuzu y alga nori. Para ramen y carnes.', price: 3500,  cat: 'especias',   region: 'asia',          flag: '🇯🇵', origin: 'Japón',     originKey: 'japon',     img: 'https://images.unsplash.com/photo-1518843875459-f738682238a6?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm3',  name: "Za'atar",             desc: 'Blend libanés de tomillo silvestre, sésamo y sumac. Para pan, humus y ensaladas.',           price: 2800,  cat: 'especias',   region: 'medio-oriente', flag: '🇱🇧', origin: 'Líbano',    originKey: 'libano',    img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm4',  name: 'Garam Masala',        desc: 'La especia madre de la cocina india. Mezcla de cardamomo, canela, clavo y comino tostados.',  price: 2600,  cat: 'especias',   region: 'asia',          flag: '🇮🇳', origin: 'India',     originKey: 'india',     img: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm5',  name: 'Pimentón de La Vera', desc: 'Pimentón ahumado DOP del Valle de La Vera, España. Imprescindible para paellas y chorizos.',  price: 3100,  cat: 'especias',   region: 'europa',        flag: '🇪🇸', origin: 'España',    originKey: 'espana',    img: 'https://images.unsplash.com/photo-1601001519116-30af48e7c0f2?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm6',  name: 'Sumac molido',        desc: 'Baya siria de sabor cítrico y afrutado. Para carnes a la parrilla, ensaladas y falafel.',     price: 2900,  cat: 'especias',   region: 'medio-oriente', flag: '🇸🇾', origin: 'Siria',     originKey: 'siria',     img: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=480&h=220&fit=crop&auto=format' },
       // DESPENSA
-      { id: 'm7',  name: 'Pasta de miso blanco',desc: 'Miso shiro fermentado por 3 meses. Base para sopas, marinadas y aderezos umami.',             price: 4800,  cat: 'despensa',   region: 'asia',          flag: '🇯🇵', origin: 'Japón',     img: 'https://images.unsplash.com/photo-1547592180-85f173d888a4?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm8',  name: 'Pasta de tamarindo',  desc: 'Concentrado puro de tamarindo sin azúcar. Para salsas agridulces, chutneys y pad thai.',      price: 3200,  cat: 'despensa',   region: 'asia',          flag: '🇮🇳', origin: 'India',     img: 'https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm9',  name: 'Ají amarillo en pasta',desc:'El sabor del Perú. Pasta de ají amarillo para causas, ceviches y ají de gallina.',            price: 3500,  cat: 'despensa',   region: 'latam',         flag: '🇵🇪', origin: 'Perú',      img: 'https://images.unsplash.com/photo-1583119022894-919a68a3d0e3?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm10', name: 'Tahini artesanal',    desc: 'Pasta de sésamo tostado de prensado en frío. Para hummus, baba ganoush y aderezos.',          price: 4200,  cat: 'despensa',   region: 'medio-oriente', flag: '🇱🇧', origin: 'Líbano',    img: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm11', name: 'Pasta de curry rojo', desc: 'Curry rojo tailandés con galangal, lemongrass y chiles. Para curries y sopas.',               price: 3000,  cat: 'despensa',   region: 'asia',          flag: '🇹🇭', origin: 'Tailandia', img: 'https://images.unsplash.com/photo-1548943487-a2e4e43b4853?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm12', name: 'Harissa picante',     desc: 'Salsa de chiles rojos tunecina con comino y ajo. La condimenta todo en el Magreb.',           price: 3400,  cat: 'despensa',   region: 'medio-oriente', flag: '🇹🇳', origin: 'Túnez',     img: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm13', name: 'Leche de coco premium',desc:'Leche de coco prensada en frío, sin aditivos. Para curries, postres y cócteles tropicales.',  price: 2800,  cat: 'despensa',   region: 'asia',          flag: '🇹🇭', origin: 'Tailandia', img: 'https://images.unsplash.com/photo-1550345332-09e3ac987658?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm14', name: 'Mirin auténtico',     desc: 'Vino dulce de arroz japonés con 10% de alcohol natural. Imprescindible para teriyaki y ramen.',price: 5200, cat: 'despensa',   region: 'asia',          flag: '🇯🇵', origin: 'Japón',     img: 'https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm7',  name: 'Pasta de miso blanco',desc: 'Miso shiro fermentado por 3 meses. Base para sopas, marinadas y aderezos umami.',             price: 4800,  cat: 'despensa',   region: 'asia',          flag: '🇯🇵', origin: 'Japón',     originKey: 'japon',     img: 'https://images.unsplash.com/photo-1547592180-85f173d888a4?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm8',  name: 'Pasta de tamarindo',  desc: 'Concentrado puro de tamarindo sin azúcar. Para salsas agridulces, chutneys y pad thai.',      price: 3200,  cat: 'despensa',   region: 'asia',          flag: '🇮🇳', origin: 'India',     originKey: 'india',     img: 'https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm9',  name: 'Ají amarillo en pasta',desc:'El sabor del Perú. Pasta de ají amarillo para causas, ceviches y ají de gallina.',            price: 3500,  cat: 'despensa',   region: 'latam',         flag: '🇵🇪', origin: 'Perú',      originKey: 'peru',      img: 'https://images.unsplash.com/photo-1583119022894-919a68a3d0e3?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm10', name: 'Tahini artesanal',    desc: 'Pasta de sésamo tostado de prensado en frío. Para hummus, baba ganoush y aderezos.',          price: 4200,  cat: 'despensa',   region: 'medio-oriente', flag: '🇱🇧', origin: 'Líbano',    originKey: 'libano',    img: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm11', name: 'Pasta de curry rojo', desc: 'Curry rojo tailandés con galangal, lemongrass y chiles. Para curries y sopas.',               price: 3000,  cat: 'despensa',   region: 'asia',          flag: '🇹🇭', origin: 'Tailandia', originKey: 'tailandia', img: 'https://images.unsplash.com/photo-1548943487-a2e4e43b4853?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm12', name: 'Harissa picante',     desc: 'Salsa de chiles rojos tunecina con comino y ajo. La condimenta todo en el Magreb.',           price: 3400,  cat: 'despensa',   region: 'medio-oriente', flag: '🇹🇳', origin: 'Túnez',     originKey: 'tunez',     img: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm13', name: 'Leche de coco premium',desc:'Leche de coco prensada en frío, sin aditivos. Para curries, postres y cócteles tropicales.',  price: 2800,  cat: 'despensa',   region: 'asia',          flag: '🇹🇭', origin: 'Tailandia', originKey: 'tailandia', img: 'https://images.unsplash.com/photo-1550345332-09e3ac987658?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm14', name: 'Mirin auténtico',     desc: 'Vino dulce de arroz japonés con 10% de alcohol natural. Imprescindible para teriyaki y ramen.',price: 5200, cat: 'despensa',   region: 'asia',          flag: '🇯🇵', origin: 'Japón',     originKey: 'japon',     img: 'https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=480&h=220&fit=crop&auto=format' },
       // BEBIDAS
-      { id: 'm15', name: 'Sake Junmai',         desc: 'Sake puro de arroz sin alcohol agregado. Notas de melocotón y anís. Para tomar frío o tibio.',price: 9500,  cat: 'bebidas',    region: 'asia',          flag: '🇯🇵', origin: 'Japón',     img: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm16', name: 'Matcha ceremonial',   desc: 'Té verde molido en piedra de Uji, Kyoto. Grado ceremonial para preparar con chasen.',         price: 7200,  cat: 'bebidas',    region: 'asia',          flag: '🇯🇵', origin: 'Japón',     img: 'https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm17', name: 'Té Pu-erh',          desc: 'Té negro fermentado de Yunnan con 5 años de añejamiento. Terroso, profundo y digestivo.',      price: 5800,  cat: 'bebidas',    region: 'asia',          flag: '🇨🇳', origin: 'China',     img: 'https://images.unsplash.com/photo-1556742111-a301076d9d18?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm18', name: 'Agua de rosas',       desc: 'Destilado de pétalos de rosa de Damasco. Para repostería, limonadas y cócteles florales.',    price: 3500,  cat: 'bebidas',    region: 'medio-oriente', flag: '🇮🇷', origin: 'Irán',      img: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm19', name: 'Horchata de chufa',   desc: 'Bebida valenciana de chufa, sin lactosa. Refrescante y naturalmente dulce.',                  price: 4200,  cat: 'bebidas',    region: 'europa',        flag: '🇪🇸', origin: 'España',    img: 'https://images.unsplash.com/photo-1499394021697-f13ac3f2b99b?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm20', name: 'Flor de Jamaica seca',desc: 'Hibiscus mexicano deshidratado. Para aguas frescas, tés fríos y cócteles.',                   price: 2400,  cat: 'bebidas',    region: 'latam',         flag: '🇲🇽', origin: 'México',    img: 'https://images.unsplash.com/photo-1597528380950-c5ecf5cd3fa0?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm15', name: 'Sake Junmai',         desc: 'Sake puro de arroz sin alcohol agregado. Notas de melocotón y anís. Para tomar frío o tibio.',price: 9500,  cat: 'bebidas',    region: 'asia',          flag: '🇯🇵', origin: 'Japón',     originKey: 'japon',     img: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm16', name: 'Matcha ceremonial',   desc: 'Té verde molido en piedra de Uji, Kyoto. Grado ceremonial para preparar con chasen.',         price: 7200,  cat: 'bebidas',    region: 'asia',          flag: '🇯🇵', origin: 'Japón',     originKey: 'japon',     img: 'https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm17', name: 'Té Pu-erh',          desc: 'Té negro fermentado de Yunnan con 5 años de añejamiento. Terroso, profundo y digestivo.',      price: 5800,  cat: 'bebidas',    region: 'asia',          flag: '🇨🇳', origin: 'China',     originKey: 'china',     img: 'https://images.unsplash.com/photo-1556742111-a301076d9d18?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm18', name: 'Agua de rosas',       desc: 'Destilado de pétalos de rosa de Damasco. Para repostería, limonadas y cócteles florales.',    price: 3500,  cat: 'bebidas',    region: 'medio-oriente', flag: '🇮🇷', origin: 'Irán',      originKey: 'iran',      img: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm19', name: 'Horchata de chufa',   desc: 'Bebida valenciana de chufa, sin lactosa. Refrescante y naturalmente dulce.',                  price: 4200,  cat: 'bebidas',    region: 'europa',        flag: '🇪🇸', origin: 'España',    originKey: 'espana',    img: 'https://images.unsplash.com/photo-1499394021697-f13ac3f2b99b?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm20', name: 'Flor de Jamaica seca',desc: 'Hibiscus mexicano deshidratado. Para aguas frescas, tés fríos y cócteles.',                   price: 2400,  cat: 'bebidas',    region: 'latam',         flag: '🇲🇽', origin: 'México',    originKey: 'mexico',    img: 'https://images.unsplash.com/photo-1597528380950-c5ecf5cd3fa0?w=480&h=220&fit=crop&auto=format' },
       // UTENSILIOS
-      { id: 'm21', name: 'Tajine de cerámica',  desc: 'Olla cónica marroquí de arcilla vidriada. Para cocinar guisos y cordero al horno.',           price: 22000, cat: 'utensilios', region: 'medio-oriente', flag: '🇲🇦', origin: 'Marruecos', img: 'https://images.unsplash.com/photo-1585238342024-78d387f4a707?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm22', name: 'Mortero de granito',  desc: 'Mortero indio pesado de granito negro. Para masas de curry, chutneys y especias.',            price: 13500, cat: 'utensilios', region: 'asia',          flag: '🇮🇳', origin: 'India',     img: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm23', name: 'Wok de acero al carbono',desc:'Wok profesional de acero al carbono con mango de madera. Se sazona como un cast iron.',     price: 11000, cat: 'utensilios', region: 'asia',          flag: '🇨🇳', origin: 'China',     img: 'https://images.unsplash.com/photo-1612690669207-fed642192723?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm24', name: 'Tetera de hierro fundido',desc:'Tetsubin japonés de hierro fundido esmaltado. Mantiene el calor por más de 30 minutos.',   price: 24000, cat: 'utensilios', region: 'asia',          flag: '🇯🇵', origin: 'Japón',     img: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm25', name: 'Prensa de tortillas', desc: 'Tortillera de hierro fundido, 20cm. Para tortillas de maíz perfectas y uniformes.',           price: 8500,  cat: 'utensilios', region: 'latam',         flag: '🇲🇽', origin: 'México',    img: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=480&h=220&fit=crop&auto=format' },
-      { id: 'm26', name: 'Set de palillos x5',  desc: 'Palillos de bambú negro lacado, reutilizables. Set de 5 pares en estuche de madera.',        price: 2200,  cat: 'utensilios', region: 'asia',          flag: '🇯🇵', origin: 'Japón',     img: 'https://images.unsplash.com/photo-1534482421-64566f976cfa?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm21', name: 'Tajine de cerámica',  desc: 'Olla cónica marroquí de arcilla vidriada. Para cocinar guisos y cordero al horno.',           price: 22000, cat: 'utensilios', region: 'medio-oriente', flag: '🇲🇦', origin: 'Marruecos', originKey: 'marruecos', img: 'https://images.unsplash.com/photo-1585238342024-78d387f4a707?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm22', name: 'Mortero de granito',  desc: 'Mortero indio pesado de granito negro. Para masas de curry, chutneys y especias.',            price: 13500, cat: 'utensilios', region: 'asia',          flag: '🇮🇳', origin: 'India',     originKey: 'india',     img: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm23', name: 'Wok de acero al carbono',desc:'Wok profesional de acero al carbono con mango de madera. Se sazona como un cast iron.',     price: 11000, cat: 'utensilios', region: 'asia',          flag: '🇨🇳', origin: 'China',     originKey: 'china',     img: 'https://images.unsplash.com/photo-1612690669207-fed642192723?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm24', name: 'Tetera de hierro fundido',desc:'Tetsubin japonés de hierro fundido esmaltado. Mantiene el calor por más de 30 minutos.',   price: 24000, cat: 'utensilios', region: 'asia',          flag: '🇯🇵', origin: 'Japón',     originKey: 'japon',     img: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm25', name: 'Prensa de tortillas', desc: 'Tortillera de hierro fundido, 20cm. Para tortillas de maíz perfectas y uniformes.',           price: 8500,  cat: 'utensilios', region: 'latam',         flag: '🇲🇽', origin: 'México',    originKey: 'mexico',    img: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=480&h=220&fit=crop&auto=format' },
+      { id: 'm26', name: 'Set de palillos x5',  desc: 'Palillos de bambú negro lacado, reutilizables. Set de 5 pares en estuche de madera.',        price: 2200,  cat: 'utensilios', region: 'asia',          flag: '🇯🇵', origin: 'Japón',     originKey: 'japon',     img: 'https://images.unsplash.com/photo-1534482421-64566f976cfa?w=480&h=220&fit=crop&auto=format' },
     ];
 
     const WHATSAPP_NUMBER = '5491134687322';
@@ -404,7 +437,7 @@
 
     function renderGrid() {
       grid.innerHTML = PRODUCTS.map(p => `
-        <div class="market-card reveal" data-id="${p.id}" data-cat="${p.cat}" data-region="${p.region}">
+        <div class="market-card reveal" data-id="${p.id}" data-cat="${p.cat}" data-region="${p.region}" data-origin="${p.originKey}">
           <img class="market-card__img" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'" />
           <div class="market-card__body">
             <span class="market-card__cat-badge">${p.cat}</span>
@@ -481,7 +514,7 @@
       let visible = 0;
       grid.querySelectorAll('.market-card').forEach(card => {
         const matchCat    = activeCat === 'todos' || card.dataset.cat === activeCat;
-        const matchRegion = activeRegion === 'todos' || card.dataset.region === activeRegion;
+        const matchRegion = activeRegion === 'todos' || card.dataset.origin === activeRegion;
         const show = matchCat && matchRegion;
         card.style.display = show ? '' : 'none';
         if (show) visible++;
@@ -501,13 +534,11 @@
       });
     });
 
-    document.querySelectorAll('.filter-region').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-region').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeRegion = btn.dataset.region;
-        applyFilters();
-      });
+    const regionSelect = document.getElementById('regionSelect');
+    regionSelect?.addEventListener('change', () => {
+      activeRegion = regionSelect.value;
+      regionSelect.classList.toggle('active', activeRegion !== 'todos');
+      applyFilters();
     });
 
     // ── Cart checkout ──
