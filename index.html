@@ -12,22 +12,6 @@
     html, body { height: 100%; overflow: hidden; }
     body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; }
 
-    /* ── BRAND HEADER ── */
-    .brand {
-      flex: 0 0 16vh;
-      min-height: 64px;
-      background: #f3e8de;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .brand__logo {
-      width: 160px;
-      max-width: 45vw;
-      display: block;
-      animation: fadeUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
-    }
-
     /* ── SELECTOR ── */
     .selector {
       flex: 1;
@@ -48,6 +32,30 @@
       transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .panel:hover { flex: 1.6; }
+
+    /* Letras IN / DI / GO */
+    .panel-letter {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(5rem, 12vw, 11rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      user-select: none;
+      pointer-events: none;
+      transition: opacity 0.4s, transform 0.4s;
+      white-space: nowrap;
+    }
+    .panel--alfajores .panel-letter { color: rgba(255,255,255,0.18); }
+    .panel--cenas     .panel-letter { color: rgba(76,39,68,0.12); }
+    .panel--market    .panel-letter { color: rgba(255,255,255,0.15); }
+    .panel:hover .panel-letter {
+      opacity: 0.06;
+      transform: translate(-50%, -52%) scale(1.04);
+    }
 
     /* Colores */
     .panel--alfajores { background: #4c2744; }
@@ -191,16 +199,12 @@
     <img src="images/logo2-indigo-transparente.png" alt="índigo" class="splash__logo" />
   </div>
 
-  <!-- ── BRAND HEADER ── -->
-  <div class="brand">
-    <img src="images/logo2-indigo-transparente.png" alt="Índigo" class="brand__logo" />
-  </div>
-
   <!-- ── SELECTOR ── -->
   <div class="selector">
 
     <!-- ALFAJORES -->
     <a href="alfajores.html" class="panel panel--alfajores">
+      <span class="panel-letter">IN</span>
       <div class="panel-content">
         <span class="panel-tag">Confitería de autor</span>
         <h2 class="panel-title">Alfajores</h2>
@@ -211,6 +215,7 @@
 
     <!-- CENAS -->
     <a href="cenas.html" class="panel panel--cenas">
+      <span class="panel-letter">DI</span>
       <div class="panel-content">
         <span class="panel-tag">Experiencias gastronómicas</span>
         <h2 class="panel-title">Cenas</h2>
@@ -221,6 +226,7 @@
 
     <!-- MARKET -->
     <a href="market.html" class="panel panel--market">
+      <span class="panel-letter">GO</span>
       <div class="panel-content">
         <span class="panel-tag">Productos seleccionados</span>
         <h2 class="panel-title">Market</h2>
