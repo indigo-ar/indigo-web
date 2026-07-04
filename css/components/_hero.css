@@ -28,6 +28,7 @@
   max-width: 70vw;
   display: block;
   margin: 0 auto var(--space-7);
+  mix-blend-mode: multiply;
 }
 
 .hero__label {
